@@ -1,4 +1,5 @@
-
+import { Link } from 'react-router-dom';
+import MainNavigation from '../components/UI/MainNavigation';
 
 const Home = () => {
 

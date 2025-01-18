@@ -3,9 +3,17 @@ import { createBrowserRouter, Router, RouterProvider } from 'react-router-dom';
 // import NavBar from "./components/UI/NavBar.jsx";
 import Sidebar from "./components/UI/Sidebar.jsx";
 import Home from './pages/Home.jsx';
+import Search from './pages/Search.jsx';
+import RootLayout from './pages/Root.jsx';
 
 const router = createBrowserRouter([
-  { path: '/', element: <Home />}
+  { path: '/', 
+    element: <RootLayout />, 
+    children: [
+      { path: '/', element: <Home />},
+      { path: '/search', element: <Search />}
+    ]
+  },
 ]);
 
 const App = () => {
