@@ -5,13 +5,15 @@ import Sidebar from "./components/UI/Sidebar.jsx";
 import Home from './pages/Home.jsx';
 import Search from './pages/Search.jsx';
 import RootLayout from './pages/Root.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   { path: '/', 
     element: <RootLayout />, 
+    errorElement: <ErrorPage />,
     children: [
       { path: '/', element: <Home />},
-      { path: '/search', element: <Search />}
+      { path: '/search', element: <Search /> }
     ]
   },
 ]);

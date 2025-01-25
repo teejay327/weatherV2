@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
+import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
 
@@ -6,8 +8,8 @@ const MainNavigation = () => {
     <header>
       <nav>
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/search">Search</Link></li>
+          <li className="text-blue-500 hover:text-yellow-100"><NavLink to="/">Home</NavLink></li>
+          <li className="text-blue-500 hover:text-yellow-100 active:text-yellow-400"><NavLink to="/search">Search</NavLink></li>
         </ul>
       </nav>
     </header>
