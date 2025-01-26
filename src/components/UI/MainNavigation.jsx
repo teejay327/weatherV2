@@ -8,8 +8,16 @@ const MainNavigation = () => {
     <header>
       <nav>
         <ul>
-          <li className="text-blue-500 hover:text-yellow-100"><NavLink to="/">Home</NavLink></li>
-          <li className="text-blue-500 hover:text-yellow-100 active:text-red-400"><NavLink to="/search">Search</NavLink></li>
+          <li className="text-blue-500 hover:text-yellow-500">
+            <NavLink to="/" className={({isActive}) => isActive ? "text-slate-400 hover:bg-slate-700" : undefined}>
+              Home
+            </NavLink>
+          </li>
+          <li className=" text-blue-500 hover:text-yellow-500">
+            <NavLink to="/search" className={({isActive}) => isActive ? "text-slate-400 hover:bg-slate-700" : undefined}>
+              Search
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
