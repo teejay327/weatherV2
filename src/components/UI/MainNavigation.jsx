@@ -9,7 +9,7 @@ const MainNavigation = () => {
       <nav>
         <ul>
           <li className="text-blue-500 hover:text-yellow-100"><NavLink to="/">Home</NavLink></li>
-          <li className="text-blue-500 hover:text-yellow-100 active:text-yellow-400"><NavLink to="/search">Search</NavLink></li>
+          <li className="text-blue-500 hover:text-yellow-100 active:text-red-400"><NavLink to="/search">Search</NavLink></li>
         </ul>
       </nav>
     </header>
