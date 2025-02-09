@@ -4,14 +4,14 @@ const MainNavigation = () => {
 
   return (
     <header>
-      <nav>
+      <nav className="flex">
         <ul>
-          <li className="text-blue-500 hover:text-yellow-500">
+          <li className="bg-stone-900 text-slate-200 hover:text-yellow-500">
             <NavLink to="/" className={({isActive}) => isActive ? "text-slate-400 hover:bg-slate-700" : undefined} end>
               Home
             </NavLink>
           </li>
-          <li className=" text-blue-500 hover:text-yellow-500">
+          <li className="bg-stone-900 text-slate-200 hover:text-yellow-500">
             <NavLink to="/search" className={({isActive}) => isActive ? "text-slate-400 hover:bg-slate-700" : undefined}>
               Search
             </NavLink>
