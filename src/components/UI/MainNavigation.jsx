@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 const MainNavigation = () => {
 
   return (
-    <header className="flex">
+    <header className="flex bg-weather-teal">
       <nav >
         <ul>
           <li className="bg-stone-900 text-slate-200 hover:text-yellow-500">
