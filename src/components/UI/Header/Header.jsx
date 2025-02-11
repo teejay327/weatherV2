@@ -6,10 +6,10 @@ const Header = () => {
 
   return (
     <div className="flex bg-weather-teal">
-      <button>
-        <span />
-        <span />
-        <span />
+      <button className="w-12 h-12 bg-transparent border-none flex flex-col justify-around ml-2 mr-8 py-1 cursor-pointer">
+        <span className="block w-12 h-1 bg-white"/>
+        <span className="block w-12 h-1 bg-white"/>
+        <span className="block w-12 h-1 bg-white"/>
       </button>
       <img src={ sunImg } alt="Sunny weather" />
       <div className="text-5xl font-bold">
