@@ -6,7 +6,7 @@ import Home from './pages/Home.jsx';
 import Search from './pages/Search.jsx';
 import RootLayout from './pages/Root.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
-import Header from './components/UI/Header/Header.jsx';
+import Header from './components/UI/Navigation/Header.jsx';
 
 const router = createBrowserRouter([
   { path: '/', 
@@ -22,15 +22,16 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <div>
-      <div>
-        <Header />
+      <div className="flex  bg-weather-teal">
+        <div>
+          <Header />
+        </div>
+        {/* <NavBar /> */}
+        <RouterProvider router={router} />
       </div>
-      {/* <NavBar /> */}
-      <RouterProvider router={router} />
       <div className="flex">
         <Sidebar className="justify-start"/>
         <h1 className="h-screen w-screen text-center text-5xl font-bold bg-weather-teal text-teal-500"><span className="text-amber-400">Weather</span>Link</h1>
-
       </div>
     </div>
   );
