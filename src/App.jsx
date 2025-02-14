@@ -21,17 +21,14 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <div>
-      <div className="flex  bg-weather-teal">
-        <div>
-          <Header />
-        </div>
-        {/* <NavBar /> */}
-        <RouterProvider router={router} />
+    <div className="h-screen bg-weather-teal">
+      <div >
+        <Header />
       </div>
-      <div className="flex">
+
+      <div className="flex my-2">
         <Sidebar className="justify-start"/>
-        <h1 className="h-screen w-screen text-center text-5xl font-bold bg-weather-teal text-teal-500"><span className="text-amber-400">Weather</span>Link</h1>
+        <RouterProvider className="bg-weather-teal" router={router} />   
       </div>
     </div>
   );

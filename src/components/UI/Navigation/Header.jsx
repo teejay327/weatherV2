@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import sunImg from "../../../assets/images/sunny.png";
 
+import sunImg from "../../../assets/images/sunny.png";
 
 const Header = () => {
 
@@ -15,7 +15,7 @@ const Header = () => {
       <div className="text-5xl font-bold">
           <h1 className="bg-weather-teal text-teal-500"><span className="text-amber-400">Weather</span>Link</h1>
       </div>
-      {/* <MainNavigation /> */}
+
     </header>
   )
 }

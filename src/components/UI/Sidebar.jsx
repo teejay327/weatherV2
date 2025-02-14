@@ -3,7 +3,7 @@
 const Sidebar = () => {
 
   return (
-    <aside className="w-1/4 p-2 bg-stone-900 md:w-72 text-stone-300">
+    <aside className="w-1/4 h-full py-4 bg-stone-900 md:w-72 text-stone-300 rounded-r-md">
       <div>
         <p>Weather</p>
       </div>

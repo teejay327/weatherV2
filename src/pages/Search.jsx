@@ -4,7 +4,7 @@ const Search = () => {
 
   return (
 
-    <h1 className="bg-stone-900 text-stone-200">Search</h1>
+    <h1 className="text-stone-200">Search</h1>
   )
 };
 
