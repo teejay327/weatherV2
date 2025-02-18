@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import MainNavigation from "../MainNavigation.jsx";
 
 import sunImg from "../../../assets/images/sunny.png";
 
@@ -15,7 +16,9 @@ const Header = () => {
       <div className="text-5xl font-bold">
           <h1 className="bg-weather-teal text-teal-500"><span className="text-amber-400">Weather</span>Link</h1>
       </div>
-
+      <div className="flex justify-items-en"> 
+        <h1>Navigation</h1>
+      </div>
     </header>
   )
 }
