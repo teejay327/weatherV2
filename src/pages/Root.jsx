@@ -1,14 +1,20 @@
 import { Outlet } from 'react-router-dom';
-import MainNavigation from '../components/UI/MainNavigation';
+import App2 from "../App2.jsx";
+// import MainNavigation from '../components/UI/MainNavigation';
 
 const RootLayout = () => {
 
   return (
     <>
-      <MainNavigation />
-      <main>
-        <Outlet />
-      </main>
+      <div>
+        <App2 />
+        {/* <MainNavigation /> */}
+        <main className="flex-1 p-4">
+          <Outlet />
+        </main>
+      </div>
+      
+ 
     </>
   )
 }
