@@ -1,5 +1,6 @@
 import Header from './components/UI/Navigation/Header.jsx';
 import Sidebar from './components/UI/Sidebar.jsx';
+import { Outlet } from 'react-router-dom';
 
 const App2 = () => {
   return (
@@ -10,6 +11,9 @@ const App2 = () => {
         {/* <div className="flex-1">
           Content will be handled by the router in main.jsx 
         </div> */}
+        <div className="flex-1 p-4 overflow-auto">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
