@@ -5,17 +5,13 @@ import App2 from "../App2.jsx";
 const RootLayout = () => {
 
   return (
-    <>
-      <div>
-        <App2 />
-        {/* <MainNavigation /> */}
-        <main className="flex-1 p-4">
-          <Outlet />
-        </main>
-      </div>
-      
- 
-    </>
+    <div>
+      <App2 />
+      {/* <MainNavigation /> */}
+      <main className="flex-1 p-4">
+        <Outlet />
+      </main>
+     </div>
   )
 }
 

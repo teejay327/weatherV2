@@ -3,13 +3,13 @@ import Sidebar from './components/UI/Sidebar.jsx';
 
 const App2 = () => {
   return (
-    <div className="h-screen bg-weather-teal">
+    <div className="flex flex-col h-screen bg-weather-teal">
       <Header />
-      <div className="flex my-2">
-        <Sidebar className="justify-start" />
-        <div className="flex-1">
-          {/* Content will be handled by the router in main.jsx */}
-        </div>
+      <div className="flex flex-1 my-2">
+        <Sidebar className="w-64 bg-gray-800 text-stone-200 h-full min-h-screen justify-start" />
+        {/* <div className="flex-1">
+          Content will be handled by the router in main.jsx 
+        </div> */}
       </div>
     </div>
   );
