@@ -8,6 +8,7 @@ const Sidebar = () => {
         <p>Weather</p>
       </div>
       <h2>Weatherzone</h2>
+      <h2>Cities around the world</h2>
     </aside>
   )
 };
