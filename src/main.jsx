@@ -5,7 +5,6 @@ import RootLayout from './pages/Root.jsx';
 import Home from './pages/Home.jsx';
 import Search from './pages/Search.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
-// import { BrowserRouter } from 'react-router-dom';
 // import App from './App.jsx';
 import './index.css';
 
