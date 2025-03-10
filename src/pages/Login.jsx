@@ -4,13 +4,13 @@ import Card from '../components/UI/Elements/Card.jsx';
 const Login = () => {
 
   return (
-    <>
+    <Card className="login">
       <h2>Login required</h2>
       <hr />
       <form>
-        <h2>Enter login</h2>
+
       </form>
-    </>
+    </Card >
   )
 }
 
