@@ -4,7 +4,24 @@ import MainNavigation from '../components/UI/MainNavigation';
 const Home = () => {
 
   return (
-    <h1 className="bg-weather-teal text-stone-200">Weather forecast for your area</h1>
+    <div className="bg-weather-teal text-stone-200 mx-4 mb-4">
+      <h1 className="text-2xl">Australia</h1>
+      <hr />
+      <div>
+        <ul>
+          <li><h2 className="my-2">Brisbane</h2></li>
+          <li><h2 className="my-2">Sydney</h2></li>
+          <li><h2 className="my-2">Melbourne</h2></li>
+          <li><h2 className="my-2">Hobart</h2></li>
+          <li><h2 className="my-2">Adelaide</h2></li>
+          <li><h2 className="my-2">Perth</h2></li>
+          <li><h2 className="my-2">Darwin</h2></li>
+        </ul>
+
+      </div>
+
+    </div>
+
   )
 }
 
