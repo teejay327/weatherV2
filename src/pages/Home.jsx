@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="bg-weather-teal text-stone-200 mx-4 mb-4">
       <h1 className="text-2xl">Australia</h1>
-      <hr />
+      <hr className="w-20"/>
       <div>
         <ul>
           <li><h2 className="my-2">Brisbane</h2></li>
