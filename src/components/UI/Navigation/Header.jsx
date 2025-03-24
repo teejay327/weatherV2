@@ -19,6 +19,7 @@ const Header = ({ toggleSidebar }) => {
           <h1 className="bg-weather-teal text-teal-500 text-3xl md:text-5xl"><span className="text-amber-400">Weather</span>Link</h1>
         </div>
 
+        {/* Hamburger Icon (Mobile only) */}
         <button onClick={handleToggleMenu} className="block md:hidden p-2 focus:outline-none">
           {menuOpen ? (
           <X className="w-10 h-10 text-white" />
@@ -27,17 +28,19 @@ const Header = ({ toggleSidebar }) => {
           )}
         </button>
 
+        {/* Desktop Navigation */}
         <div className="hidden md:block">
           <MainNavigation />
         </div>
       </div>
       
-    {menuOpen && (
-      <div className="md:hidden px-4 pb-4">
-        <MainNavigation isMobile={true} />
-      </div>
+      {/* Mobile Navigation */}
+      {menuOpen && (
+        <div className="md:hidden px-4 pb-4">
+          <MainNavigation isMobile={true} />
+        </div>
     )}
-    </header>
+  </header>
   )
 }
 
