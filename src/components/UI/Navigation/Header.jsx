@@ -11,6 +11,10 @@ const Header = ({ toggleSidebar }) => {
     setMenuOpen((prev) => !prev);
   }
 
+  const handleCloseMenu = () => {
+    setMenuOpen(false);
+  }
+
   return (
     <header className="bg-weather-teal w-full relative">
       <div className="flex items-center justify-between  px-4 py-2">
@@ -37,9 +41,9 @@ const Header = ({ toggleSidebar }) => {
       {/* Mobile Navigation */}
       {menuOpen && (
         <div className="md:hidden px-4 pb-4">
-          <MainNavigation isMobile={true} />
+          <MainNavigation isMobile={true} closeMenu={handleCloseMenu} />
         </div>
-    )}
+      )}
   </header>
   )
 }
