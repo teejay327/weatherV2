@@ -14,9 +14,10 @@ const Sidebar = () => {
         } md:opacity-100 md:visible md:w-full `}
       >
         <p>Weather</p>
+        <h2>Weatherzone</h2>
+        <h2>Cities around the world</h2>
       </div>
-      <h2>Weatherzone</h2>
-      <h2>Cities around the world</h2>
+
     </aside>
   )
 };
