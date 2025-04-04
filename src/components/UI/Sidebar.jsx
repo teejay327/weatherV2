@@ -5,11 +5,14 @@ const Sidebar = () => {
 
   return (
     <aside className={`w-1/4 h-full px-2 py-4 bg-stone-900 md:w-72 text-stone-300 rounded-r-md
-      transition-all duration-300 ease-in-out ${isOpen ? "w-64 px-4" : "w-[4px] overflow-hidden" } md:w-72`}
+      transition-all duration-300 ease-in-out ${isOpen ? "w-64 px-4" : "w-[8px] overflow-hidden" } md:w-72`}
      onMouseEnter={() => setIsOpen(true)}
      onMouseLeave={() => setIsOpen(false)}
     >
-      <div className={`${isOpen ? "opacity-100" : "opacity-0 md:opacity-100"} transition-opacity duration-300`}>
+      <div className={`transition-opacity duration-300 ${
+        isOpen ? "opacity-100 visible w-full" : "opacity-0 invisible w-0"
+        } md:opacity-100 md:visible md:w-full `}
+      >
         <p>Weather</p>
       </div>
       <h2>Weatherzone</h2>
