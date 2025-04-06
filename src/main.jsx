@@ -5,8 +5,8 @@ import RootLayout from './pages/Root.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Search from './pages/Search.jsx';
+import Charts from './pages/Charts.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
-// import App from './App.jsx';
 import './index.css';
 
 const router = createBrowserRouter([
@@ -16,9 +16,9 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
-      { path: 'login', element: <Login />},
-      { path: 'search', element: <Search /> }
-
+      { path: 'login', element: <Login /> },
+      { path: 'search', element: <Search /> },
+      { path: 'charts', element: <Charts /> }
     ],
   },
 ]);
