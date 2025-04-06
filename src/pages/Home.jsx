@@ -1,7 +1,12 @@
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Charts from './Charts';
 import MainNavigation from '../components/UI/MainNavigation';
 
 const Home = () => {
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const showCharts = params.get('show') === 'charts';
 
   return (
     <div className="bg-weather-teal text-stone-200 mx-4 mb-4">
@@ -17,11 +22,14 @@ const Home = () => {
           <li><h2 className="my-2">Perth</h2></li>
           <li><h2 className="my-2">Darwin</h2></li>
         </ul>
-
       </div>
+      {showCharts && (
+        <div className="mt-4">
+          <Charts />
+        </div>
+      )}
 
     </div>
-
   )
 }
 
