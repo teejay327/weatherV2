@@ -58,8 +58,9 @@ const Input = props => {
     /> ) : null;
 
   return (
-    //<div className="w-9/10 max-w-36 list-none m-1 p-0"> WATCH THE CLASSNAMES UNDERNEATH!
-    <div className="w-9/10 max-w-36 list-none m-1 p-0  ${`!inputState.isValid && inputState.isTouched}` ">
+    //<div className="w-9/10 max-w-36 list-none m-1 p-0"> WATCH THE CLASSNAMES UNDERNEATH! We need a class 
+    // like this: ${`!inputState.isValid && inputState.isTouched && <tailwinds class>}`
+    <div className="w-9/10 max-w-36 list-none m-1 p-0  ${`!inputState.isValid && inputState.isTouched && bg-red-700}` ">
       <label htmlFor={ props.id }>{ props.label }</label>
       { element }
       { !inputState.isValid && inputState.isTouched && <p>{ props.errorText }</p>}

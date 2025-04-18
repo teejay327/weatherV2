@@ -6,7 +6,7 @@ const Input = props => {
       <label htmlFor={ props.id }>
         { props.label }
       </label>
-    </div>>
+    </div>
 };
 
 export default Input;
