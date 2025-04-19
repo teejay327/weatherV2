@@ -20,10 +20,12 @@ const inputReducer = (state, action) => {
 };
 
 const Input = props => {
+  console.log('Input props:', props);
+
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.value || '',
+    value: '',
     isTouched: false,
-    isValid: props.valid || false
+    isValid: false
   });
 
   const { id, onInput } = props;
@@ -47,24 +49,53 @@ const Input = props => {
     });
   };
 
-  const element = props.element === 'input' ? (
-    <input 
+  const element = props.element === 'textarea' ? (
+    <textarea 
       id={ props.id }
-      type={ props.type }
-      placeholder={ props.placeHolder }
+      rows={ props.row || 3 }
       onChange={ changeHandler }
       onBlur={ touchHandler }
       value={ inputState.value }
-    /> ) : null;
+      className="w-full p-2 rounded bg-white text-black"
+    />
+  ) : (
+    <input 
+      id={ props.id }
+      type={ props.type }
+      onChange={ changeHandler }
+      onBlur={ touchHandler }
+      value={ inputState.value }
+      className="w-full p-2 rounded bg-white text-black"
+      placeholder={ props.placeholder }
+    />
+  )
 
   return (
+    <div  className="form-control text-white">
+      <label htmlFor={props.id} className="block text-sm font-medium mb-1">{props.label}</label>
+      {element}
+      {/* <input 
+        id={props.id}
+        type={ props.type}  
+        onChange={changeHandler}
+        onBlur={touchHandler}
+        value={props.value}
+        className="text-black p-2"
+      /> */}
+      {!inputState.isValid && inputState.isTouched && (
+        <p className="text-red-400 text-sm mt-1">{props.errorText}</p>
+      )}
+    </div>
+
+
     //<div className="w-9/10 max-w-36 list-none m-1 p-0"> WATCH THE CLASSNAMES UNDERNEATH! We need a class 
     // like this: ${`!inputState.isValid && inputState.isTouched && <tailwinds class>}`
-    <div className="w-9/10 max-w-36 list-none m-1 p-0  ${`!inputState.isValid && inputState.isTouched && bg-red-700}` ">
-      <label htmlFor={ props.id }>{ props.label }</label>
-      { element }
-      { !inputState.isValid && inputState.isTouched && <p>{ props.errorText }</p>}
-    </div>  
+    
+    // <div className="w-9/10 max-w-36 list-none m-1 p-0  ${`!inputState.isValid && inputState.isTouched && bg-red-700}` ">
+    //   <label htmlFor={ props.id }>{ props.label }</label>
+    //   { element }
+    //   { !inputState.isValid && inputState.isTouched && <p>{ props.errorText }</p>}
+    // </div>  
   )
 }
 
