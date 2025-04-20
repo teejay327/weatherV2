@@ -2,9 +2,16 @@
 import { useForm } from '../components/shared/hooks/form-hook.jsx';  // NEW
 import Card from '../components/UI/Elements/Card.jsx';
 import Input from '../../src/components/FormElements/Input.jsx';  // NEW
-import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL } from '../components/shared/util/validators.js';
+import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../components/shared/util/validators.js';
 
 const Login = () => {
+
+  // return (
+  //   <Card className="bg-gray-800 text-white p-6">
+  //     <h2>Login page inside card</h2>
+  //   </Card>
+  // )
+ 
   const [formState, inputHandler] = useForm(
     {
       email: { value: '', isValid: false }
@@ -56,28 +63,6 @@ const Login = () => {
       </form>
     </Card >
   );
-
-
-    // <div className="p-4 bg-gray-900 text-white max-w-md mx-auto mt-10">
-      
-      {/* <h2 className="text-xl font-bold mb-4">login</h2>
-      <form>
-        <Input 
-          id="email"
-          element="input"
-          type="email"
-          label="Email"
-          onInput={ inputHandler }
-          validators={[]}
-          errorText="Please enter a valid email"
-          placeholder="yourname@example.com"
-        />
-      </form> */}
-    // </div>
-  // )
-
-
-
 };
 
 export default Login;
