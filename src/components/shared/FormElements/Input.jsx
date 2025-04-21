@@ -36,6 +36,7 @@ const Input = props => {
   }, [id, value, isValid, onInput]);
 
   const changeHandler = event => {
+    console.log("Typing input", props.id, event.target.value)
     dispatch({
       type: 'CHANGE',
       val: event.target.value,
@@ -49,39 +50,47 @@ const Input = props => {
     });
   };
 
-  const element = props.element === 'textarea' ? (
+  // const element = props.element === 'textarea' ? (
+  const elementType = props.element?.toLowerCase() || 'input'
+  const isTextarea = elementType === 'textarea';
+
+  const element = isTextarea ? (
     <textarea 
       id={ props.id }
-      rows={ props.row || 3 }
+      rows={ props.rows || 3 }
+      value={ inputState.value }
       onChange={ changeHandler }
       onBlur={ touchHandler }
-      value={ inputState.value }
+      placeholder={ props.placeholder }
       className="w-full p-2 rounded bg-white text-black"
     />
   ) : (
     <input 
       id={ props.id }
       type={ props.type }
+      value={ inputState.value }
       onChange={ changeHandler }
       onBlur={ touchHandler }
-      value={ inputState.value }
-      className="w-full p-2 rounded bg-white text-black"
       placeholder={ props.placeholder }
+      className="w-full p-2 rounded bg-white text-black"
     />
   )
 
+  // console.log('Input rendered:', props.id);
+
   return (
-    <div  className="form-control text-white">
+    <div  className="mb-4">
+      {/* <label htmlFor={props.id} className="block text-sm font-medium mb-1">{props.label}</label>
+        <input
+          id={props.id}
+          type="text"
+          onChange={(e) => console.log('CHANGE fired:', e.target.value)}
+          className="text-black p-2 w-full"
+        /> */}
+
       <label htmlFor={props.id} className="block text-sm font-medium mb-1">{props.label}</label>
       {element}
-      {/* <input 
-        id={props.id}
-        type={ props.type}  
-        onChange={changeHandler}
-        onBlur={touchHandler}
-        value={props.value}
-        className="text-black p-2"
-      /> */}
+
       {!inputState.isValid && inputState.isTouched && (
         <p className="text-red-400 text-sm mt-1">{props.errorText}</p>
       )}

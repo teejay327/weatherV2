@@ -1,7 +1,7 @@
 //import { useState } from 'react';
 import { useForm } from '../components/shared/hooks/form-hook.jsx';  // NEW
 import Card from '../components/UI/Elements/Card.jsx';
-import Input from '../../src/components/FormElements/Input.jsx';  // NEW
+import Input from '../../src/components/shared/FormElements/Input.jsx';  // NEW
 import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../components/shared/util/validators.js';
 
 const Login = () => {
