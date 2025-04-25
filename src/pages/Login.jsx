@@ -1,17 +1,11 @@
-//import { useState } from 'react';
-import { useForm } from '../components/shared/hooks/form-hook.jsx';  // NEW
+import { useState } from 'react';
+import { useForm } from '../components/shared/hooks/form-hook.jsx';
 import Card from '../components/UI/Elements/Card.jsx';
-import Input from '../../src/components/shared/FormElements/Input.jsx';  // NEW
+import Input from '../../src/components/shared/FormElements/Input.jsx';
 import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../components/shared/util/validators.js';
 
 const Login = () => {
 
-  // return (
-  //   <Card className="bg-gray-800 text-white p-6">
-  //     <h2>Login page inside card</h2>
-  //   </Card>
-  // )
- 
   const [formState, inputHandler] = useForm(
     {
       email: { value: '', isValid: false }
@@ -21,6 +15,11 @@ const Login = () => {
     },
     false
   );
+
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  }
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -37,7 +36,7 @@ const Login = () => {
            element="input" 
            type="email" 
            label="Email" 
-           validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]} // changed type from text to email
+           validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
            errorText="Please enter a valid email address" 
            onInput={ inputHandler } 
            placeholder="yourname@example.com"
@@ -46,13 +45,21 @@ const Login = () => {
          <Input 
            id="password" 
            element="input" 
-           type="password" 
+           type={ showPassword ? 'text' : 'password' } 
            label="Password" 
-           validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]} // changed type from text to email
+           validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(6)]}
            errorText="Please enter a valid password" 
            onInput={ inputHandler } 
-           placeholder="your password"
+           placeholder="************"
         />
+
+        <button
+          type="button"
+          onClick={ togglePassword }
+          className="text-sm text-blue-400 hover:underline mt-1"
+        >
+          { showPassword ? 'Hide Password' : 'Show password'}
+        </button>
 
         <button type="submit" 
            disabled={!formState.isValid} 
