@@ -76,35 +76,14 @@ const Input = props => {
     />
   )
 
-  // console.log('Input rendered:', props.id);
-
   return (
     <div  className="mb-4">
-      {/* <label htmlFor={props.id} className="block text-sm font-medium mb-1">{props.label}</label>
-        <input
-          id={props.id}
-          type="text"
-          onChange={(e) => console.log('CHANGE fired:', e.target.value)}
-          className="text-black p-2 w-full"
-        /> */}
-
       <label htmlFor={props.id} className="block text-sm font-medium mb-1">{props.label}</label>
       {element}
-
       {!inputState.isValid && inputState.isTouched && (
         <p className="text-red-400 text-sm mt-1">{props.errorText}</p>
       )}
     </div>
-
-
-    //<div className="w-9/10 max-w-36 list-none m-1 p-0"> WATCH THE CLASSNAMES UNDERNEATH! We need a class 
-    // like this: ${`!inputState.isValid && inputState.isTouched && <tailwinds class>}`
-    
-    // <div className="w-9/10 max-w-36 list-none m-1 p-0  ${`!inputState.isValid && inputState.isTouched && bg-red-700}` ">
-    //   <label htmlFor={ props.id }>{ props.label }</label>
-    //   { element }
-    //   { !inputState.isValid && inputState.isTouched && <p>{ props.errorText }</p>}
-    // </div>  
   )
 }
 
