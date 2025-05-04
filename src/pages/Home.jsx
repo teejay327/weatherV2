@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import Charts from './Charts';
+import SevenDayForecast from './SevenDayForecast';
 import MainNavigation from '../components/UI/MainNavigation';
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const showCharts = params.get('show') === 'charts';
+  const showSevenDayForecast = params.get('show') === 'sevendayforecast';
 
   return (
     <div className="bg-weather-teal text-stone-200 mx-4 mb-4">
@@ -26,6 +28,11 @@ const Home = () => {
       {showCharts && (
         <div className="mt-4">
           <Charts />
+        </div>
+      )}
+      {showSevenDayForecast && (
+        <div className="mt-4">
+          <SevenDayForecast />
         </div>
       )}
 
