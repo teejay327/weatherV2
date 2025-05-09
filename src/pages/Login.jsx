@@ -28,7 +28,7 @@ const Login = () => {
 
   return (
     <Card className="bg-gray-900 p-6 max-w-md mx-auto mt-10 text-white">
-      <h2 className="text-xl font-bold mb-2">Login required</h2>
+      <h2 className="text-xl text-stone-200 mb-2">Login required</h2>
       <hr className="border-stone-600 mb-4"/>
       <form onSubmit={ submitHandler } className="space-y-4">
         <Input 
