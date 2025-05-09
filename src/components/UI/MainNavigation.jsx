@@ -1,12 +1,12 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../shared/hooks/use-auth.jsx';
 
 const MainNavigation = ({ isMobile = false, closeMenu }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const activeLink = params.get("show");
-  // const showCharts = params.get('show') === 'charts';
-  // const showSevenDays = params.get('show') === 'sevendayforecast';
+  const { isLoggedIn } = useAuth();
 
   const handleClick = (event) => {
     // if (isMobile && closeMenu) {
@@ -28,7 +28,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
               }
               end 
               onClick={handleClick}
-            >
+            >src/components/shred/context folder
               Home
             </NavLink>
           </li>
