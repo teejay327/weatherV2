@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useForm } from '../components/shared/hooks/form-hook.jsx';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/shared/hooks/use-auth.jsx';
+import toast from 'react-hot-toast';
 import Card from '../components/UI/Elements/Card.jsx';
 import Input from '../../src/components/shared/FormElements/Input.jsx';
 import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../components/shared/util/validators.js';
@@ -8,9 +11,7 @@ const Login = () => {
 
   const [formState, inputHandler] = useForm(
     {
-      email: { value: '', isValid: false }
-    }, 
-    {
+      email: { value: '', isValid: false },
       password: { value: '', isValid: false  }
     },
     false
@@ -21,9 +22,15 @@ const Login = () => {
     setShowPassword((prev) => !prev);
   }
 
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const submitHandler = (event) => {
     event.preventDefault();
     console.log('LOGIN FORM DATA:', formState.inputs);
+    login();
+    toast.success('Welcome back!');
+    navigate('/');
   }
 
   return (

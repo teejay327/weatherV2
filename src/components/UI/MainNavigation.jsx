@@ -1,12 +1,13 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../shared/hooks/use-auth.jsx';
+import toast from 'react-hot-toast';
 
 const MainNavigation = ({ isMobile = false, closeMenu }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const activeLink = params.get("show");
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
 
   const handleClick = (event) => {
     // if (isMobile && closeMenu) {
@@ -74,19 +75,32 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
           </>
         )}
 
-        {!isLoggedIn && (
+        {!isLoggedIn && (  
+          <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <NavLink 
+              to="/login" 
+              className={({isActive}) => 
+                isActive ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
+              } onClick={handleClick}
+            >
+              Login
+            </NavLink>
+          </li>
+        )}
 
-   
-        <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
-          <NavLink 
-            to="/login" 
-            className={({isActive}) => 
-              isActive ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
-            } onClick={handleClick}
-          >
-            Login
-          </NavLink>
-        </li>
+        {isLoggedIn && (
+          <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <button
+              onClick={() => {
+                logout();
+                toast("You've been logged out!");
+                navigate('/');
+              }}
+              className="hover:text-yellow-400"
+            >
+              Logout
+            </button>
+          </li>
         )}
       </ul>
 
