@@ -7,6 +7,7 @@ const Home = () => {
 
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+  const cities = ['Brisbane','Sydney','Melbourne','Hobart','Adelaide','Perth','Darwin'];
   const showCharts = params.get('show') === 'charts';
   const showSevenDayForecast = params.get('show') === 'sevendayforecast';
 
