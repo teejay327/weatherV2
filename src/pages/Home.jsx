@@ -38,37 +38,28 @@ const Home = () => {
 
   return (
     <div className="bg-weather-teal text-stone-200 mx-4 mb-4">
-      <h1 className="text-2xl">Current temperature</h1>
-      <hr className="w-20"/>
+      <h1 className="text-2xl mb-2">Current temperatures</h1>
+      <hr className="w-50"/>
       <div>
-        <ul>
-
+        <ul className="mt-1 space-y-2">
           {cities.map((city) => (
-            <li key={city} className="flex items-center gap-3">
-              <span className="text-xl">{city}:</span>
+            <li key={city} className="grid grid-cols-4 items-center gap-0">
+              <span className="text-xl">{city}</span>
               {weatherData[city] ? (
                 <>
                   <span>{Math.floor(weatherData[city].temp)}° C</span>
                   <img 
                     src={`https:${weatherData[city].icon}`}
                     alt={weatherData[city].condition}
-                    className="inline w-6 h-6"
+                    className="inline w-12 h-12"
                   />
                   <span className="text-xl">{weatherData[city].condition}</span>
                 </>
               ) : (
-                <span>loading ...</span>
+                <span className="col-span-3">loading ...</span>
               )}
             </li>
           ))}
-
-          {/* <li><h2 className="my-2">Brisbane</h2></li>
-          <li><h2 className="my-2">Sydney</h2></li>
-          <li><h2 className="my-2">Melbourne</h2></li>
-          <li><h2 className="my-2">Hobart</h2></li>
-          <li><h2 className="my-2">Adelaide</h2></li>
-          <li><h2 className="my-2">Perth</h2></li>
-          <li><h2 className="my-2">Darwin</h2></li> */}
         </ul>
       </div>
       {showCharts && (
