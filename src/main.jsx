@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Search from './pages/Search.jsx';
 import Charts from './pages/Charts.jsx';
+import CurrentLocation from './pages/CurrentLocation.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import './index.css';
 
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'login', element: <Login /> },
       { path: 'search', element: <Search /> },
-      { path: 'charts', element: <Charts /> }
+      { path: 'charts', element: <Charts /> },
+      { path: 'location', element: <CurrentLocation /> }
     ],
   },
 ]);

@@ -25,7 +25,10 @@ app.get('/api/weather', async(req, res) => {
       city,
       temperature: response.data.current.temp_c,
       condition: response.data.current.condition.text,
-      icon: response.data.current.condition.icon
+      icon: response.data.current.condition.icon,
+      humidity: response.data.current.humidity,
+      rainfall: response.data.current.precip_mm,
+      wind_kph: response.data.current.wind_kph
     });
   } catch (error) {
     console.error('API error:', error.message);

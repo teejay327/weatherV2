@@ -1,10 +1,39 @@
-
-
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import DateDisplay from '../components/shared/util/date.jsx';
 
 const CurrentLocation = () => {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const place = params.get('place');
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    const fetchWeather = async() => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/weather?city=${place}`);
+        const data = await res.json();
+        setWeather(data);
+      } catch(err) {
+        console.error('Unable to fetch weather for current location:', err);
+      }
+    };
+    if (place) fetchWeather();
+  }, [place]);
+
+  if (!weather) return <p className="text-stone-200 p-4">loading weather ...</p>;
 
   return (
-    
+    <div className="p-4 text-stone-200">
+      <h2 className="text-2xl font-bold mb-2">{weather.city}</h2>
+      <DateDisplay />
+      <div className="mt-4 space-y-2">
+        <p>Temperature: {weather.temperature}°C</p>
+        <p>Humidity: {weather.humidity ?? '--'}%</p>
+        <p>Rainfall: {weather.rainfall ?? '--'}mm</p>
+        <p>Wind: {weather.wind_kph ?? '--'}km/h</p>
+      </div>
+    </div>
   )
 }
 
