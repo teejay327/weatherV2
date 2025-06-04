@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DisplayDate from '../components/shared/util/DisplayDate.jsx';
+import Charts from '../pages/Charts.jsx';
 import SevenDayForecast from '../pages/SevenDayForecast.jsx';
 
 const CurrentLocation = () => {
@@ -28,7 +29,7 @@ const CurrentLocation = () => {
 
   return (
     <div className="p-4 text-stone-200">
-      <h2 className="text-2xl font-bold mb-2">{weather.city}</h2>
+      <h2 className="text-2xl mb-2">Current weather for {weather.city}</h2>
       <DisplayDate />
       <div className="mt-4 space-y-2">
         <p>Temperature: {weather.temperature}°C</p>
