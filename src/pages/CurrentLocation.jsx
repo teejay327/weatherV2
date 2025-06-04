@@ -1,11 +1,13 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DisplayDate from '../components/shared/util/DisplayDate.jsx';
+import SevenDayForecast from '../pages/SevenDayForecast.jsx';
 
 const CurrentLocation = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const place = params.get('place');
+  const show = params.get('show');
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
@@ -33,6 +35,11 @@ const CurrentLocation = () => {
         <p>Humidity: {weather.humidity ?? '--'}%</p>
         <p>Rainfall: {weather.rainfall ?? '--'}mm</p>
         <p>Wind: {weather.wind_kph ?? '--'}km/h</p>
+      </div>
+
+      <div className="mt-8">
+        {show === 'charts' && <Charts />}
+        {show === 'sevendayforecast' && <SevenDayForecast />}
       </div>
     </div>
   )
