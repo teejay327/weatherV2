@@ -32,10 +32,10 @@ const CurrentLocation = () => {
       <h2 className="text-2xl mb-2">Current weather for {weather.city}</h2>
       <DisplayDate />
       <div className="mt-4 space-y-2">
-        <p>Temperature: {weather.temperature}°C</p>
+        <p>Temperature: {Math.floor(weather.temperature)}°C</p>
         <p>Humidity: {weather.humidity ?? '--'}%</p>
         <p>Rainfall: {weather.rainfall ?? '--'}mm</p>
-        <p>Wind: {weather.wind_kph ?? '--'}km/h</p>
+        <p>Wind: {Math.floor(weather.wind_kph) ?? '--'}km/h</p>
       </div>
 
       <div className="mt-8">
