@@ -37,7 +37,7 @@ const CurrentLocation = () => {
         <p>Rainfall: {weather.rainfall ?? '--'}mm</p>
         <p>Wind: {Math.floor(weather.wind_kph) ?? '--'}km/h</p>
       </div>
-
+ 
       <div className="mt-8">
         {show === 'charts' && <Charts />}
         {show === 'sevendayforecast' && <SevenDayForecast />}
