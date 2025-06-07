@@ -1,3 +1,4 @@
+import WindyRadar from '../components/shared/FormElements/WindyRadar.jsx';
 
 const Charts = () => {
 
@@ -7,13 +8,7 @@ const Charts = () => {
       <div>
         <h2>Brisbane Radar</h2>
         <div className="border rounded-md shadow-lg overflow-hidden">
-          <iframe className="w-full h-[500px] rounded-md"
-            title="Brisbane radar viewer"
-            src="https://www.bom.gov.au/radar/IDR663.loop.shtml"
-            width="100%"
-            height="500"
-            alt="Brisbane radar loop"
-          />
+        <WindyRadar />
         </div>
       </div>
 
