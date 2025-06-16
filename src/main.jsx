@@ -11,6 +11,7 @@ import Charts from './pages/Charts.jsx';
 import CurrentLocation from './pages/CurrentLocation.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
 import './index.css';
+import 'leaflet/dist/leaflet.css';
 
 const router = createBrowserRouter([
   {

@@ -1,4 +1,5 @@
 import WindyRadar from '../components/shared/FormElements/WindyRadar.jsx';
+import SatelliteMap from '../components/shared/util/SatelliteMap.jsx';
 
 const Charts = () => {
 
@@ -14,7 +15,8 @@ const Charts = () => {
 
       <div>
         <h2>Brisbane satellite view</h2>
-        <div className="border rounded-md shadow-lg overflow-hidden">
+        <SatelliteMap />
+        {/* <div className="border rounded-md shadow-lg overflow-hidden">
           <iframe className="w-full h-[500px] rounded-md"
             title="Australian satellite viewer"
             src="https://www.bom.gov.au/australia/satellite/"
@@ -22,7 +24,7 @@ const Charts = () => {
             height="500"
             alt="Brisbane satellite"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   )
