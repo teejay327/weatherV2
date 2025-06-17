@@ -1,5 +1,5 @@
 import WindyRadar from '../components/shared/FormElements/WindyRadar.jsx';
-import SatelliteMap from '../components/shared/util/SatelliteMap.jsx';
+import WeatherMapStack  from '../components/shared/util/WeatherMapStack.jsx';
 
 const Charts = () => {
 
@@ -15,7 +15,7 @@ const Charts = () => {
 
       <div>
         <h2>Brisbane satellite view</h2>
-        <SatelliteMap />
+        <WeatherMapStack  />
         {/* <div className="border rounded-md shadow-lg overflow-hidden">
           <iframe className="w-full h-[500px] rounded-md"
             title="Australian satellite viewer"
