@@ -18,6 +18,11 @@ const WeatherMapStack = () => {
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
               attribution="Tiles@Esri Source: Esri, Earthstar Geographics"
             />
+            <TileLayer 
+              url="https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=0d33e5afe0774544b33142154241008"
+              attribution="@OpenWeatherMap"
+              opacity={0.5}
+            />
           </BaseLayer>
         
           <Overlay checked name="Radar">
