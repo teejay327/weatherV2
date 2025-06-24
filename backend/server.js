@@ -21,17 +21,19 @@ app.get('/api/weather', async(req, res) => {
     const response = await axios.get(
       `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
     );
+
+    const data = response.data;
     res.json({
-      city,
-      temperature: response.data.current.temp_c,
-      condition: response.data.current.condition.text,
-      icon: response.data.current.condition.icon,
-      humidity: response.data.current.humidity,
-      rainfall: response.data.current.precip_mm,
-      wind_kph: response.data.current.wind_kph
+      city: data.location.name,
+      temperature: data.current.temp_c,
+      condition: data.current.condition.text,
+      icon: data.current.condition.icon,
+      humidity: data.current.humidity,
+      rainfall: data.current.precip_mm,
+      wind_kph: data.current.wind_kph
     });
   } catch (error) {
-    console.error('API error:', error.message);
+    console.error('API error for ${city}:', error.message);
     res.status(500).json({ error: 'Failed to retrieve weather data'});
   }
 });

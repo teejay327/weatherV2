@@ -4,6 +4,8 @@ import 'leaflet/dist/leaflet.css';
 const { BaseLayer, Overlay } = LayersControl;
 
 const WeatherMapStack = () => {
+  const key = import.meta.env.WEATHER_API_KEY;
+
   return (
     <div className="w-full h-[500px] rounded-md overflow-hidden shadow-lg mt-8">
       <MapContainer
@@ -18,11 +20,6 @@ const WeatherMapStack = () => {
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
               attribution="Tiles@Esri Source: Esri, Earthstar Geographics"
             />
-            <TileLayer 
-              url="https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=0d33e5afe0774544b33142154241008"
-              attribution="@OpenWeatherMap"
-              opacity={0.5}
-            />
           </BaseLayer>
         
           <Overlay checked name="Radar">
@@ -31,6 +28,15 @@ const WeatherMapStack = () => {
               attribution="Radar data@Rainviewer"
               opacity={0.6}
               zIndex={1000}
+            />
+          </Overlay>
+
+          <Overlay name="Clouds">
+            <TileLayer 
+              url={`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${key}`}
+              attribution="@OpenWeatherMap"
+              opacity={0.5}
+              zindex={999}
             />
           </Overlay>
         </LayersControl>
