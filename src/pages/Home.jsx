@@ -49,11 +49,11 @@ const Home = () => {
                 <>
                   <span>{Math.floor(weatherData[city].temp)}° C</span>
                   <img 
-                    src={`https:${weatherData[city].icon}`}
+                    src={weatherData[city].icon}
                     alt={weatherData[city].condition}
                     className="inline w-12 h-12"
                   />
-                  <span className="text-xl">{weatherData[city].condition}</span>
+                  <span className="text-lg">{weatherData[city].condition}</span>
                 </>
               ) : (
                 <span className="col-span-3">loading ...</span>
