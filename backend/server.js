@@ -19,18 +19,26 @@ app.get('/api/weather', async(req, res) => {
 
   try {
     const response = await axios.get(
-      `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
+      `https://api.openweathermap.org/data/2.5/weather`,
+      {
+        params: {
+          q:city,
+          appid: API_KEY,
+          units: 'metric'
+        }
+      }
     );
 
     const data = response.data;
+    console.log("ICON CODE:", data.weather[0].icon);
     res.json({
-      city: data.location.name,
-      temperature: data.current.temp_c,
-      condition: data.current.condition.text,
-      icon: data.current.condition.icon,
-      humidity: data.current.humidity,
-      rainfall: data.current.precip_mm,
-      wind_kph: data.current.wind_kph
+      city: data.name,
+      temperature: data.main.temp,
+      condition: data.weather[0].description,
+      icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
+      humidity: data.main.humidity,
+      rainfall: data.rain?.['1h'] || 0,
+      wind_kph: data.wind.speed
     });
   } catch (error) {
     console.error('API error for ${city}:', error.message);
