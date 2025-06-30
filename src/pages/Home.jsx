@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Charts from './Charts';
-import SevenDayForecast from './SevenDayForecast';
+import FiveDays from './FiveDays';
 import MainNavigation from '../components/UI/MainNavigation';
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
   const cities = ['Brisbane','Sydney','Melbourne','Hobart','Adelaide','Perth','Darwin'];
   const [weatherData, setWeatherData] = useState({});
   const showCharts = params.get('show') === 'charts';
-  const showSevenDayForecast = params.get('show') === 'sevendayforecast';
+  const showFiveDays = params.get('show') === 'fivedays';
 
   useEffect(() => {
     const fetchWeather = async() => {
@@ -67,9 +67,9 @@ const Home = () => {
           <Charts />
         </div>
       )}
-      {showSevenDayForecast && (
+      {showFiveDays && (
         <div className="mt-4">
-          <SevenDayForecast />
+          <FiveDays />
         </div>
       )}
 

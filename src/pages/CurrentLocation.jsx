@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import DisplayDate from '../components/shared/util/DisplayDate.jsx';
 import Charts from '../pages/Charts.jsx';
-import SevenDayForecast from '../pages/SevenDayForecast.jsx';
+import FiveDays from '../pages/FiveDays.jsx';
 
 const CurrentLocation = () => {
   const location = useLocation();
@@ -40,7 +40,7 @@ const CurrentLocation = () => {
  
       <div className="mt-8">
         {show === 'charts' && <Charts />}
-        {show === 'sevendayforecast' && <SevenDayForecast />}
+        {show === 'fivedays' && <FiveDays />}
       </div>
     </div>
   )

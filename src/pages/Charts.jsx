@@ -4,7 +4,7 @@ import WeatherMapStack  from '../components/shared/util/WeatherMapStack.jsx';
 const Charts = () => {
 
   return (
-    <div className="bg-weather-teal text-stone-200 mx-4 mb-4">
+    <div className="bg-weather-teal text-stone-200 mb-4">
       <p className="text-2xl">Weather Charts</p>
       <div>
         <h2>Brisbane Radar</h2>
