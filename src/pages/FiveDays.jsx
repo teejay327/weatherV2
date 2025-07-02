@@ -9,7 +9,7 @@ const FiveDays = () => {
   const [forecastData, setForecastData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const key = import.meta.env.WEATHER_API_KEY;
+  const key = import.meta.env.VITE_WEATHER_API_KEY;
 
   useEffect(() => {
     const fetchForecast = async() => {
@@ -65,7 +65,19 @@ const FiveDays = () => {
 
   return (
     <div className="bg-weather-teal text-stone-200 mb-4">
-      <p className="text-2xl">5 day forecast</p>
+      <h2 className="text-2xl font-bold mb-4">5 day forecast for {place}</h2>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md_grid-cols-3 gap-4'>
+        {forecastData.map((day,index) => {
+          <div key={index} clasName="bg-stone-800 p-4 rounded shadow">
+            <p className="font-semibold text-lg">{day.date}</p>
+            <p className="capitalize text-stone-200 text-sm">{day.description}</p>
+            <p>Min: {day.minTemp}°C</p>
+            <p>Max: {day.maxTemp}°C</p>
+            <p>Chance of rain: {day.rainChance}%</p>
+            <p>Rainfall: {day.rainAmount}mm</p>
+          </div>
+        })}
+      </div>
     </div>
   )
 }
