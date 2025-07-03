@@ -33,11 +33,11 @@ const FiveDays = () => {
 
         const daily = Object.entries(grouped).slice(0,5).map(([date,entries]) => {
           const descriptions = entries.map(e => e.weather[0].description);
-          const min = Math.min(...entries.map(e = e.main.temp_min));
+          const min = Math.min(...entries.map(e => e.main.temp_min));
           const max = Math.max(...entries.map(e => e.main.temp_max));
           const rainChances = entries.map(e => e.pop); // pop = probability of precipitation (0-1)
           const totalRain = entries.reduce((acc,e) => {
-            acc + (e.rain?.['3h'] || 0)
+            return acc + (e.rain?.['3h'] || 0)
           },0)
 
           return {
@@ -45,7 +45,7 @@ const FiveDays = () => {
             description: descriptions[Math.floor(descriptions.length/2)],
             minTemp: min.toFixed(1),
             maxtemp: max.toFixed(1),
-            rainChance: math.round(Math.max(...rainChances) * 100),
+            rainChance: Math.round(Math.max(...rainChances) * 100),
             rainAmount: totalRain.toFixed(1)
           };
         });
@@ -67,7 +67,7 @@ const FiveDays = () => {
 
   return (
     <div className="bg-weather-teal text-stone-200 mb-4">
-      <h2 className="text-2xl font-bold mb-4">5 day forecast for {place}</h2>
+      <h2 className="text-2xl mb-4">5 day forecast for {place}</h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 md_grid-cols-3 gap-4'>
         {forecastData.map((day,index) => {
           <div key={index} clasName="bg-stone-800 p-4 rounded shadow">
