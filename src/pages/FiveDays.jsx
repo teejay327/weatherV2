@@ -19,6 +19,8 @@ const FiveDays = () => {
           `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${key}`
         );
         const data = await res.json();
+        console.log('[DEBUG] VITE API key:', import.meta.env.VITE_WEATHER_API_KEY);
+        console.log('[DEBUG] API key:', import.meta.env.WEATHER_API_KEY );
         if (data.cod !== '200') throw new Error(data.message);
 
         // Group forecast into days
