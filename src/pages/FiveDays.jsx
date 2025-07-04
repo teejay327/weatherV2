@@ -44,7 +44,7 @@ const FiveDays = () => {
             date: format(new Date(date), 'EEEE, d MMMM'),
             description: descriptions[Math.floor(descriptions.length/2)],
             minTemp: min.toFixed(1),
-            maxtemp: max.toFixed(1),
+            maxTemp: max.toFixed(1),
             rainChance: Math.round(Math.max(...rainChances) * 100),
             rainAmount: totalRain.toFixed(1)
           };
@@ -70,7 +70,8 @@ const FiveDays = () => {
       <h2 className="text-2xl mb-4">5 day forecast for {place}</h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 md_grid-cols-3 gap-4'>
         {forecastData.map((day,index) => {
-          <div key={index} clasName="bg-stone-800 p-4 rounded shadow">
+          return (
+            <div key={index} className="bg-stone-800 p-4 rounded shadow">
             <p className="font-semibold text-lg">{day.date}</p>
             <p className="capitalize text-stone-200 text-sm">{day.description}</p>
             <p>Min: {day.minTemp}°C</p>
@@ -78,6 +79,7 @@ const FiveDays = () => {
             <p>Chance of rain: {day.rainChance}%</p>
             <p>Rainfall: {day.rainAmount}mm</p>
           </div>
+          )
         })}
       </div>
     </div>
