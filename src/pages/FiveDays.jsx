@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
+import { WeatherIcon } from '../components/weather/WeatherIcons.jsx';
 
 const FiveDays = () => {
   const location = useLocation();
@@ -43,8 +44,8 @@ const FiveDays = () => {
           return {
             date: format(new Date(date), 'EEEE, d MMMM'),
             description: descriptions[Math.floor(descriptions.length/2)],
-            minTemp: min.toFixed(1),
-            maxTemp: max.toFixed(1),
+            minTemp: min.toFixed(0),
+            maxTemp: max.toFixed(0),
             rainChance: Math.round(Math.max(...rainChances) * 100),
             rainAmount: totalRain.toFixed(1)
           };
@@ -66,19 +67,21 @@ const FiveDays = () => {
   if (error) return <p className="text-red-400 p-4">Error: {error} </p>;
 
   return (
-    <div className="bg-weather-teal text-stone-200 mb-4">
+    <div className="bg-stone-800 text-stone-200 -6 rounded-lg shadow-lg">
       <h2 className="text-2xl mb-4">5 day forecast for {place}</h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md_grid-cols-3 gap-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-5 gap-4'>
         {forecastData.map((day,index) => {
           return (
-            <div key={index} className="bg-stone-800 p-4 rounded shadow">
-            <p className="font-semibold text-lg">{day.date}</p>
-            <p className="capitalize text-stone-200 text-sm">{day.description}</p>
-            <p>Min: {day.minTemp}°C</p>
-            <p>Max: {day.maxTemp}°C</p>
-            <p>Chance of rain: {day.rainChance}%</p>
-            <p>Rainfall: {day.rainAmount}mm</p>
-          </div>
+            <div key={index} className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow">
+              <WeatherIcon type={day.description} />     
+              <p className="font-semibold mt-2">{day.date}</p>
+              <p className="text-lg">
+                <span className="font-bold">{day.minTemp}°C</span> /{' '}
+                <span className="font-bold">{day.maxTemp}°C</span>
+              </p>
+              <p className="text-sm mt-1">{day.rainChance}%</p>
+              <p className="text-sm">{day.rainAmount}mm</p>
+            </div>
           )
         })}
       </div>
