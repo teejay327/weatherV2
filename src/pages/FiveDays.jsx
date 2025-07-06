@@ -20,8 +20,6 @@ const FiveDays = () => {
           `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${key}`
         );
         const data = await res.json();
-        console.log('[DEBUG] VITE API key:', import.meta.env.VITE_WEATHER_API_KEY);
-        console.log('[DEBUG] API key:', import.meta.env.WEATHER_API_KEY );
         if (data.cod !== '200') throw new Error(data.message);
 
         // Group forecast into days
@@ -67,16 +65,16 @@ const FiveDays = () => {
   if (error) return <p className="text-red-400 p-4">Error: {error} </p>;
 
   return (
-    <div className="bg-stone-800 text-stone-200 -6 rounded-lg shadow-lg">
+    <div className="bg-stone-800 text-stone-200 p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl mb-4">5 day forecast for {place}</h2>
       <div className='grid grid-cols-1 sm:grid-cols-5 gap-4'>
         {forecastData.map((day,index) => {
           return (
-            <div key={index} className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow">
-              <WeatherIcon type={day.description} />     
+            <div key={index} className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow">   
               <p className="font-semibold mt-2">{day.date}</p>
+              <WeatherIcon type={day.description} />  
               <p className="text-lg">
-                <span className="font-bold">{day.minTemp}°C</span> /{' '}
+                <span className="font-bold">{day.minTemp}°C</span> -{' '}
                 <span className="font-bold">{day.maxTemp}°C</span>
               </p>
               <p className="text-sm mt-1">{day.rainChance}%</p>

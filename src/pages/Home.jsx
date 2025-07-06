@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Charts from './Charts';
 import FiveDays from './FiveDays';
-import MainNavigation from '../components/UI/MainNavigation';
 
 const Home = () => {
 

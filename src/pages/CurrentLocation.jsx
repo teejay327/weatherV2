@@ -28,7 +28,7 @@ const CurrentLocation = () => {
   if (!weather) return <p className="text-stone-200 p-4">loading weather ...</p>;
 
   return (
-    <div className="p-4 text-stone-200">
+    <div className="bg-weather-teal-offset text-stone-200 p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl mb-2">Current weather for {weather.city}</h2>
       <DisplayDate />
       <div className="mt-4 space-y-2">

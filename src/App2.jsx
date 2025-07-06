@@ -11,7 +11,7 @@ const App2 = () => {
         {/* <div className="flex-1">
           Content will be handled by the router in main.jsx 
         </div> */}
-        <div className="flex-1 p-4 overflow-auto">
+        <div className="flex-1 px-3 overflow-auto">
           <Outlet />
         </div>
       </div>

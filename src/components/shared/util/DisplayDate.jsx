@@ -4,7 +4,7 @@ const DisplayDate = () => {
   console.log('date is:', date);
   
   return (
-      <p className="text-stone-200 mb-4">{ formattedDate }</p>
+      <p className="text-stone-200 font-semibold mb-4">{ formattedDate }</p>
   )
 }
 

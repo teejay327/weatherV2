@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        "weather-teal":"#065e81"
+        "weather-teal":"#065e81",
+        "weather-teal-offset": "#1f85ad"
       }
     },
   },
