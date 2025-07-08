@@ -72,13 +72,16 @@ const FiveDays = () => {
           return (
             <div key={index} className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow">   
               <p className="font-semibold mt-2">{day.date}</p>
-              <WeatherIcon type={day.description} />  
+              <p className="flex flex-col items-center mt-2"> 
+                <WeatherIcon type={day.description} />
+                <span className="text-sm">{day.description}</span>
+              </p>
               <p className="text-lg">
-                <span className="font-bold">{day.minTemp}°C</span> -{' '}
+                <span className="font-bold">{day.minTemp}</span> -{' '}
                 <span className="font-bold">{day.maxTemp}°C</span>
               </p>
-              <p className="text-sm mt-1">{day.rainChance}%</p>
-              <p className="text-sm">{day.rainAmount}mm</p>
+              <p className="text-sm mt-1">Chance of rain: {day.rainChance}%</p>
+              <p className="text-sm">Amount of rain: {Math.floor(day.rainAmount)}mm</p>
             </div>
           )
         })}

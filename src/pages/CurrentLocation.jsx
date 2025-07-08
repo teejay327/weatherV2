@@ -29,13 +29,16 @@ const CurrentLocation = () => {
 
   return (
     <div className="bg-weather-teal-offset text-stone-200 p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl mb-2">Current weather for {weather.city}</h2>
+      <h2 className="text-2xl mb-2">Today's forecast for {weather.city}</h2>
       <DisplayDate />
       <div className="mt-4 space-y-2">
-        <p>Temperature: {Math.floor(weather.temperature)}°C</p>
+        <p>Current temperature: {Math.floor(weather.temperature)}°C</p>
         <p>Humidity: {weather.humidity ?? '--'}%</p>
-        <p>Rainfall: {weather.rainfall ?? '--'}mm</p>
-        <p>Wind: {Math.floor(weather.wind_kph) ?? '--'}km/h</p>
+        <p>Rainfall (last 3 hours): {weather.rainfall ?? '0'}mm</p>
+        <p>Wind: <span>{weather.wind_kph ? `${Math.floor(weather.wind_kph)} km/h` : '--'} </span>
+        {' '}
+        <span className="ml-1 text-sm">({weather.wind_dir ?? '--'})</span>
+        </p>
       </div>
  
       <div className="mt-8">

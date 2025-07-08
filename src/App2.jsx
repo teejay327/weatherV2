@@ -6,8 +6,8 @@ const App2 = () => {
   return (
     <div className="flex flex-col h-screen bg-weather-teal">
       <Header />
-      <div className="flex flex-1 my-2">
-        <Sidebar className="w-64 bg-gray-800 text-stone-200 h-full min-h-screen justify-start" />
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar className="w-64 bg-gray-800 text-stone-200 min-h-screen" />
         {/* <div className="flex-1">
           Content will be handled by the router in main.jsx 
         </div> */}

@@ -19,7 +19,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
   return (
     <nav >
       <ul className={`flex ${isMobile ? "flex-col space-y-4" : "space-x-6"}`} >
-        <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+        <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
           <NavLink 
             to="/" 
             className={({isActive}) => 
@@ -34,7 +34,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
 
         {isLoggedIn && (
           <>
-            <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
               <NavLink 
                 to="/search" 
                 className={({isActive}) => 
@@ -45,7 +45,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
               </NavLink>
             </li>
 
-            <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
               <NavLink
                 //to="/?show=charts"
                 to={`/location?place=${place}&show=charts`}
@@ -56,7 +56,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
                 Charts
               </NavLink>
             </li>
-            <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
               <NavLink
                 //to="/?show=sevendayforecast"
                 to={`/location?place=${place}&show=fivedays`}
@@ -71,7 +71,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
         )}
 
         {!isLoggedIn && (  
-          <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+          <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
             <NavLink 
               to="/login" 
               className={({isActive}) => 
@@ -84,7 +84,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
         )}
 
         {isLoggedIn && (
-          <li className="bg-stone-900 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+          <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
             <button
               onClick={() => {
                 logout();

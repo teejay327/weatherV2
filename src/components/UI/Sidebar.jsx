@@ -4,7 +4,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen ] = useState(false);
 
   return (
-    <aside className={`w-1/4 h-full px-2 py-4 bg-stone-900 md:w-72 text-stone-300 rounded-r-md
+    <aside className={`w-1/4 h-full px-2 py-4 bg-stone-800 md:w-72 text-stone-300 rounded-r-md
       transition-all duration-300 ease-in-out ${isOpen ? "w-64 px-4" : "w-[8px] overflow-hidden" } md:w-72`}
      onMouseEnter={() => setIsOpen(true)}
      onMouseLeave={() => setIsOpen(false)}
