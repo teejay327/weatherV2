@@ -38,7 +38,8 @@ app.get('/api/weather', async(req, res) => {
       icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
       humidity: data.main.humidity,
       rainfall: data.rain?.['1h'] || 0,
-      wind_kph: data.wind.speed
+      wind_kph: data.wind.speed,
+      wind_dir: data.wind.deg
     });
   } catch (error) {
     console.error('API error for ${city}:', error.message);
