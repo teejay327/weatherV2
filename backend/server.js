@@ -3,25 +3,20 @@ const mongoose = require('mongoose');
 const axios = require('axios');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const userRoutes = require('./routes/users-routes');
 
 dotenv.config();
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => {
-  console.log('Connected to MongoDB');
-})
-
-const userRoutes = require('./routes/users-routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const API_KEY = process.env.WEATHER_API_KEY;
 
+// middleware
 app.use(cors());
+app.use(bodyParser.json());
 
+// routes
 app.use('/api/users', userRoutes);
 
 app.get('/api/weather', async(req, res) => {
@@ -60,6 +55,21 @@ app.get('/api/weather', async(req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Weather API proxy is running on http://localhost:${PORT}`);
-})
+const startServer = async() => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+
+    console.log('Connected to MongoDB');
+    app.listen(PORT, () => {
+      console.log(`Weather API proxy is running on http://localhost:${PORT}`);
+});
+  } catch(err) {
+    console.err('MongoDB connection failed:', err.message);
+    process.exit(1);
+  }
+};
+
+startServer();
