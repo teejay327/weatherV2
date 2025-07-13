@@ -1,9 +1,18 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const axios = require('axios');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
+
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log('Connected to MongoDB');
+})
 
 const userRoutes = require('./routes/users-routes');
 
