@@ -55,21 +55,16 @@ app.get('/api/weather', async(req, res) => {
   }
 });
 
-const startServer = async() => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true
+    })
+    .then(() => {
+      console.log('Connected to MongoDB');
+      app.listen(PORT, () => {
+        console.log(`Weather API proxy is running on http://localhost:${PORT}`);
+      })
+    })
+    .catch((err) => {
+      console.error('MongoDB connection failed:', err.message);
     });
-
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-      console.log(`Weather API proxy is running on http://localhost:${PORT}`);
-});
-  } catch(err) {
-    console.err('MongoDB connection failed:', err.message);
-    process.exit(1);
-  }
-};
-
-startServer();
