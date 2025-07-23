@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users-routes');
 
 dotenv.config();
+console.log('[DEBUG] Loaded MONGODB_URI:', process.env.MONGODB_URI);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
