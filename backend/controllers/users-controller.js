@@ -36,4 +36,47 @@ const signup = async(req,res) => {
   res.status(201).json({ userId: newUser.id, email: newUser.email });
 }
 
+//Login controller
+const login = async(req, res) => {
+  const { email, password } = req.body;
+
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      return res.status(403).json({ message: 'Invalid credentials'});
+    }
+  } catch (err) {
+    return res.status(500).json({ message: 'Login failed'});
+  }
+
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, existingUser.password);
+    if (!isValidPassword) {
+      return res.status(403).json({ message: 'Invalid email or password'});
+    }
+  } catch (err) {
+      return res.status(500).json({ message: 'Could not log you in'});
+  }
+  
+  let token;
+  try {
+    token = jwt.sign(
+      { userId: existingUser.id, email: existingUser.email },
+      process.env.JWT_SECRET,
+      ( expiresIn: '1h')
+    );
+  } catch (err) {
+    return res.status(500).json({ message: 'Login failed: Could not generate token'})
+  }
+
+  res.status(200).json({
+    userId: existingUser.id,
+    email: existingUser.email,
+    token
+  });
+};
+
 exports.signup = signup;
+exports.login = login;
