@@ -1,10 +1,10 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const axios = require('axios');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
-const userRoutes = require('./routes/users-routes');
+import express from 'express';
+import mongoose from 'mongoose';
+import axios from 'axios';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import userRoutes from './routes/users-routes.js';
 
 dotenv.config();
 console.log('[DEBUG] Loaded MONGODB_URI:', process.env.MONGODB_URI);

@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import usersController from '../controllers/users-controller.js';
+import checkAuth from '../middleware/check-auth.js';
+
 const router = express.Router();
-const usersController = require('../controllers/users-controller');
-const checkAuth = require('../middleware/check-auth');
 
 // Public routes
 router.post('/signup', usersController.signup);
@@ -12,4 +13,4 @@ router.get('protected', checkAuth, (req,res) => {
   res.json({ message: `Ahoy, ${req.user.email}! You've reached the secure harbour!` });
 });
 
-module.exports = router;
+export default router;
