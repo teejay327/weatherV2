@@ -9,7 +9,7 @@ router.post('/signup', usersController.signup);
 router.post('/login', usersController.login);
 
 // Protected routes
-router.get('protected', checkAuth, (req,res) => {
+router.get('/protected', checkAuth, (req,res) => {
   res.json({ message: `Ahoy, ${req.user.email}! You've reached the secure harbour!` });
 });
 
