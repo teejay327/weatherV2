@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import userRoutes from './routes/users-routes.js';
+import locationRoutes from './routes/locations-routes.js';
 
 dotenv.config();
 console.log('[DEBUG] Loaded MONGODB_URI:', process.env.MONGODB_URI);
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 
 // routes
 app.use('/api/users', userRoutes);
+app.use('/api/locations', locationRoutes);
 
 app.get('/api/weather', async(req, res) => {
   const city = req.query.city;

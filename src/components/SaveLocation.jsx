@@ -34,12 +34,15 @@ const SaveLocation = ({ token }) => {
           type="text"
           placeholder="Enter location (e.g. Brisbane)"
           value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          required
         />
-          <button>
+          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
             Save location
           </button>
       </form>
-      {message && <p>{ message }</p>}
+      {message && <p className="mt-4 text-center text-sm">{ message }</p>}
     </div>
   )
 }
