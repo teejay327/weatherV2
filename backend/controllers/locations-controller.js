@@ -11,10 +11,23 @@ const saveLocation = async(req, res) => {
 
     await newLocation.save();
     res.status(201).json({ message: 'Location saved successfully'});
-  } catch {
+  } catch(err) {
       console.log('Error saving location:', err);
       res.status(500).json({message: 'Failed to save location'});
   };
-}
+};
 
-export default saveLocation;
+const getRecentLocations = async(req, res) => {
+  try {
+    const locations = await Location.find({ userId: req.userData.userId })
+      .sort({ createdAt: -1})
+      .limit(3);
+    
+      res.status(200).json(locations);
+  } catch(err) {
+      console.log('Error fetching recent locations', err);
+      res.status(500).json({ message: 'Failed to fetch recent locations' });
+  };
+};
+
+export default {saveLocation,getRecentLocations};
