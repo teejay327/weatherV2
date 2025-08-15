@@ -30,4 +30,4 @@ const getRecentLocations = async(req, res) => {
   };
 };
 
-export default {saveLocation,getRecentLocations};
+export {saveLocation,getRecentLocations};
