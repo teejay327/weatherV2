@@ -2,6 +2,7 @@ import Location from '../models/location.js';
 
 const saveLocation = async(req, res) => {
   try {
+    console.log('[DEBUG] req.userData:, req.userData');
     const { location } = req.body;
 
     const newLocation = new Location({

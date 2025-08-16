@@ -1,6 +1,7 @@
 import express from 'express';
-import checkAuth from '../middleware/check-auth.js';
 import { saveLocation, getRecentLocations } from '../controllers/locations-controller.js';
+import checkAuth from '../middleware/check-auth.js';
+
 //import { getRecentLocations } from '../controllers/get-recent-locations-controller.js'
 
 const router = express.Router();
