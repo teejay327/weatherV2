@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 const Sidebar = ({ token }) => {
@@ -35,12 +35,12 @@ const Sidebar = ({ token }) => {
         } md:opacity-100 md:visible md:w-full `}
       >
         <h2 className="text-lg font-bold mb-4">Recent locations</h2>
-        {recentLocations.length > 0 (
+        {recentLocations.length > 0 ? (
           <ul className="space-y-2">
             {recentLocations.map((loc) => (
               <li key={loc._id} className="p-2 bg-stone-700 rounded-md">
                 {loc.location}
-             </li>
+              </li>
             ))}
           </ul>
         ) : (
