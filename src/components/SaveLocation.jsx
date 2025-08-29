@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const SaveLocation = ({ token }) => {
+const SaveLocation = ({ token, onLocationSaved }) => {
   const [location, setLocation] = useState('');
   const [message, setMessage] = useState('');
 
@@ -20,6 +20,7 @@ const SaveLocation = ({ token }) => {
       );
       setMessage('location saved successfully!');
       setLocation('');
+      if (onLocationSaved) onLocationSaved();
     } catch(error) {
       console.error('error saving location:', error.response?.data || error.message);
       setMessage('failed to save location');

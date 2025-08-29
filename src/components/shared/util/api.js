@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const fetchRecentLocation = async(token) => {
+const fetchRecentLocations = async(token) => {
   const response = await axios.get('http://localhost:5000/api/locations/recent', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -9,4 +9,4 @@ const fetchRecentLocation = async(token) => {
   return response.data.locations;
 };
 
-export default fetchRecentLocation;
+export default fetchRecentLocations;

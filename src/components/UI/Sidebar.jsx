@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import SaveLocation  from "../SaveLocation";
 
 const Sidebar = ({ token }) => {
   const [isOpen, setIsOpen ] = useState(false);
   const [recentLocations, setRecentLocations ] = useState([]);
 
-  useEffect(() => {
-    const fetchRecentLocations = async() => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/locations/recent", {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        setRecentLocations(response.data);
-      } catch(error) {
-        console.log("Failed to fetch recent locations:", error.response?.data || error.message);
-      }
-    };
+  const fetchRecentLocations = async() => {
+    console.log("[SIDEBAR]: Fetching recent locations ...");
+    try {
+      const response = await axios.get("http://localhost:5000/api/locations/recent", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
+      console.log("[SIDEBAR] Response from backend:", response.data);
+      setRecentLocations(response.data);
+    } catch(error) {
+      console.log("Failed to fetch recent locations:", error.response?.data || error.message);
+    }
+  };
+
+  useEffect(() => {
     if (token) { 
       fetchRecentLocations();
     }
@@ -45,6 +49,14 @@ const Sidebar = ({ token }) => {
           </ul>
         ) : (
           <p className="text-sm">No saved locations exist</p>
+        )}
+
+        {/* Save new location */}
+        {token && (
+          <SaveLocation 
+            token={token}
+            onLocationSaved={fetchRecentLocations} // refresh sidebar when new location saved
+          />
         )}
       </div>
     </aside>

@@ -23,6 +23,8 @@ const getRecentLocations = async(req, res) => {
     const locations = await Location.find({ userId: req.userData.userId })
       .sort({ createdAt: -1})
       .limit(3);
+
+    console.log("GET RECENT LOCATIONS] FOUND:", locations);
     
     res.status(200).json(locations);
   } catch(err) {

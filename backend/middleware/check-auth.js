@@ -12,6 +12,7 @@ const checkAuth = (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     req.userData = { userId: decodedToken.userId, email: decodedToken.email };
+    console.log("[CHECK-AUTH User data attached: decodedToken.email");
     next();
   } catch (err) {
     console.error('[JWT ERROR]', err.message);
