@@ -8,6 +8,7 @@ const Sidebar = ({ token }) => {
 
   const fetchRecentLocations = async() => {
     console.log("[SIDEBAR]: Fetching recent locations ...");
+    if (!token) return;
     try {
       const response = await axios.get("http://localhost:5000/api/locations/recent", {
         headers: {
