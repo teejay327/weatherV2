@@ -25,12 +25,37 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     console.log('LOGIN FORM DATA:', formState.inputs);
-    login();
-    toast.success('Welcome back!');
-    navigate('/');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/users/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value
+        })
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      localStorage.setItem('token', data.token);
+      login(data.userId, data.token);
+      toast.success('Welcome back!');
+      navigate('/');
+    } catch(err) {
+      console.error('Login failed:', err.message);
+      toast.error('Login failed, please try again');
+    }
+
+    // login();
+    // toast.success('Welcome back!');
+    // navigate('/');
   }
 
   return (

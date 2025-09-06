@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SaveLocation  from "../SaveLocation";
 
-const Sidebar = ({ token }) => {
+// const Sidebar = ({ token }) => {
+const Sidebar = () => {
   const [isOpen, setIsOpen ] = useState(false);
   const [recentLocations, setRecentLocations ] = useState([]);
+  const [token, setToken] = useState(null); // NEW
 
   const fetchRecentLocations = async() => {
     console.log("[SIDEBAR]: Fetching recent locations ...");
@@ -23,11 +25,18 @@ const Sidebar = ({ token }) => {
     }
   };
 
+  // useEffect(() => {
+  //   if (token) { 
+  //     fetchRecentLocations();
+  //   }
+  // }, [token]);
+
   useEffect(() => {
-    if (token) { 
-      fetchRecentLocations();
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
     }
-  }, [token]);
+  }, []);
 
   return (
     <aside className={`w-1/4 h-full px-2 py-4 bg-stone-800 md:w-72 text-stone-300 rounded-r-md
@@ -53,11 +62,18 @@ const Sidebar = ({ token }) => {
         )}
 
         {/* Save new location */}
-        {token && (
+        {/* {token && (
           <SaveLocation 
             token={token}
             onLocationSaved={fetchRecentLocations} // refresh sidebar when new location saved
           />
+        )} */}
+        {token ? (
+          <SaveLocation token={token} />
+        ) : (
+          <p className="text-sm text-stone-400">
+            Please login to save a location
+          </p>
         )}
       </div>
     </aside>
