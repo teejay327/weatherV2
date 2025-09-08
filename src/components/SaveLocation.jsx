@@ -39,7 +39,7 @@ const SaveLocation = ({ token, onLocationSaved }) => {
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           required
         />
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
+          <button type="submit" className="w-full bg-stone-500 text-stone-200 py-2 rounded-md hover:bg-blue-600">
             Save location
           </button>
       </form>
