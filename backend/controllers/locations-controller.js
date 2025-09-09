@@ -1,12 +1,25 @@
 import Location from '../models/location.js';
+import axios from 'axios';
 
 const saveLocation = async(req, res) => {
   try {
     console.log('[DEBUG] req.userData:, req.userData');
     const { location } = req.body;
 
+    const geoRes = await axios.get(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${process.env.WEATHER_API_KEY}`
+    )
+
+    if (!geoRes.data.length) {
+      return res.status(404).json({ message: 'Location not found'})
+    }
+
+    const { lat,lon } = geoRes.data[0];
+
     const newLocation = new Location({
       location,
+      lat,
+      lon,
       userId: req.userData.userId
     });
 
