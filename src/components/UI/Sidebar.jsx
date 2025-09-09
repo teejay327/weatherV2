@@ -43,7 +43,19 @@ const Sidebar = ({token}) => {
           <ul className="space-y-2">
             {recentLocations.map((loc) => (
               <li key={loc._id} className="p-2 bg-stone-700 rounded-md">
-                {loc.location}
+                <div className="font-semibold">
+                  {loc.location}
+                </div>
+                {loc.lat && loc.lon && (
+                  <div className="text-xs text-stone-400">
+                    Lat: {loc.lat}, Lon: {loc.lon}
+                  </div>
+                )}
+                {loc.weather && (
+                  <div className="text-sm mt-1 italic">
+                    {loc.weather.summary} - {loc.weather.temp}°C
+                  </div>
+                )}                
               </li>
             ))}
           </ul>
@@ -56,4 +68,4 @@ const Sidebar = ({token}) => {
   )
 };
 
-export default Sidebar;
+export default Sidebar; cvxzsas
