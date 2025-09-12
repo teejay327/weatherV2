@@ -3,18 +3,29 @@ import axios from 'axios';
 
 const saveLocation = async(req, res) => {
   try {
-    console.log('[DEBUG] req.userData:, req.userData');
+    console.log('[DEBUG] req.userData:', req.userData);
     const { location } = req.body;
 
+    if (!location || typeof location !== 'string' || !location.trim()) {
+      return res.status(400).json({message: 'Invalid location in request body'});
+    }
+
+    // using encodeURIComponent to avoid problems with spaces & special characters
+    const q = encodeURIComponent(location.trim());
+
     const geoRes = await axios.get(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=1&appid=${process.env.WEATHER_API_KEY}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${q}&limit=1&appid=${process.env.WEATHER_API_KEY}`
     )
 
-    if (!geoRes.data.length) {
+    if (!Array.isArray(geoRes.data) || getOverlappingDaysInIntervals.length === 0) {
       return res.status(404).json({ message: 'Location not found'})
     }
 
     const { lat,lon } = geoRes.data[0];
+    if (typeof lat !== 'number' || typeof lon !=='number') {
+      console.error('[GEOCODE] unexpected lat/lon:', geoRes.data[0]);
+      return res.status(502).json({message: 'Geocoding returned invalid data'});
+    }
 
     const newLocation = new Location({
       location,
@@ -37,7 +48,7 @@ const getRecentLocations = async(req, res) => {
       .sort({ createdAt: -1})
       .limit(3);
 
-    console.log("GET RECENT LOCATIONS] FOUND:", locations);
+    console.log("[DEBUG] GET RECENT LOCATIONS FOUND:", locations);
     
     res.status(200).json(locations);
   } catch(err) {
