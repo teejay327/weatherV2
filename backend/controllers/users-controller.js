@@ -65,7 +65,7 @@ const login = async(req, res) => {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: '1d' }
     );
   } catch (err) {
     return res.status(500).json({ message: 'Login failed: Could not generate token'});

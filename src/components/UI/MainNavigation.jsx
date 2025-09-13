@@ -8,7 +8,8 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
   const params = new URLSearchParams(location.search);
   const activeLink = params.get("show");
   const place = params.get("place");
-  const { isLoggedIn, logout } = useAuth();
+  const { token, logout } = useAuth();
+  const isLoggedIn = !!token;
 
   const handleClick = (event) => {
     if (event.target.innerText.toLowerCase() === "home") {
