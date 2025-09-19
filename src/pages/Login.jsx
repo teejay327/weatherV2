@@ -44,18 +44,14 @@ const Login = () => {
         throw new Error(data.message || 'Login failed');
       }
 
-      localStorage.setItem('token', data.token);
-      login(data.userId, data.token);
+      //localStorage.setItem('token', data.token);
+      login(data.token);
       toast.success('Welcome back!');
       navigate('/');
     } catch(err) {
       console.error('Login failed:', err.message);
       toast.error('Login failed, please try again');
     }
-
-    // login();
-    // toast.success('Welcome back!');
-    // navigate('/');
   }
 
   return (
