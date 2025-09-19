@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from "./shared/hooks/use-auth.jsx";
 
-const SaveLocation = ({ token, onLocationSaved }) => {
+const SaveLocation = ({ onLocationSaved }) => {
+  const { token } = useAuth();
   const [location, setLocation] = useState('');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(null);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    if (!token || !location.trim()) return;
 
     try {
       const response = await axios.post(
@@ -21,6 +24,7 @@ const SaveLocation = ({ token, onLocationSaved }) => {
       setMessage('location saved successfully!');
       setLocation('');
       if (onLocationSaved) onLocationSaved();
+      console.log("[DEBUG] Location saved:", response.data);
     } catch(error) {
       console.error('error saving location:', error.response?.data || error.message);
       setMessage('failed to save location');
@@ -39,7 +43,7 @@ const SaveLocation = ({ token, onLocationSaved }) => {
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
           required
         />
-          <button type="submit" className="w-full bg-stone-500 text-stone-200 py-2 rounded-md hover:bg-blue-600">
+          <button type="submit" disabled={!location.trim()} className="w-full bg-stone-500 text-stone-200 py-2 rounded-md hover:bg-blue-600">
             Save location
           </button>
       </form>

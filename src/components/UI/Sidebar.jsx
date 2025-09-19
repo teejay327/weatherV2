@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SaveLocation  from "../SaveLocation.jsx";
+import { useAuth } from "../shared/hooks/use-auth.jsx";
 
-const Sidebar = ({token}) => {
+const Sidebar = () => {
+  const { token } = useAuth();
   const [isOpen, setIsOpen ] = useState(false);
   const [recentLocations, setRecentLocations ] = useState([]);
 
@@ -37,7 +39,7 @@ const Sidebar = ({token}) => {
         } md:opacity-100 md:visible md:w-full `}
       >
         <h2 className="text-lg font-bold mb-4">Saved locations</h2>
-        <SaveLocation token={token} onLocationSaved={fetchRecentLocations} />
+        <SaveLocation onLocationSaved={fetchRecentLocations} />
         <div className="mt-4">
         {recentLocations.length > 0 ? (
           <ul className="space-y-2">
