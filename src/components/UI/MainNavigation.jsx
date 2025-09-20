@@ -12,6 +12,9 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
   const isLoggedIn = !!token;
 
   const handleClick = (event) => {
+    if (typeof closeMenu === "function") {
+      closeMenu();
+    }
     if (event.target.innerText.toLowerCase() === "home") {
       navigate("/");
     }
@@ -53,17 +56,18 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
                 className={() =>
                   activeLink === "charts" ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
                 }
+                onClick={handleClick}
               >
                 Charts
               </NavLink>
             </li>
             <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
               <NavLink
-                //to="/?show=sevendayforecast"
                 to={`/location?place=${place}&show=fivedays`}
                 className={() =>
                   activeLink === "fivedays" ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
                 }
+                onClick={handleClick}
               >
                 5 Days
               </NavLink>
@@ -91,6 +95,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
                 logout();
                 toast("You've been logged out!");
                 navigate('/');
+                if (typeof closeMenu === "function") { closeMenu();}
               }}
               className="hover:text-yellow-400"
             >
@@ -99,7 +104,6 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
           </li>
         )}
       </ul>
-
     </nav>
   )
 }

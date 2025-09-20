@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { Menu, X } from "lucide-react";
 import MainNavigation from "../MainNavigation.jsx";
-
 import sunImg from "../../../assets/images/sunny.png";
 
-const Header = ({ toggleSidebar }) => {
+const Header = () => {
   const [menuOpen, setMenuOpen ] = useState(false);
 
   const handleToggleMenu = () => {
@@ -19,7 +18,7 @@ const Header = ({ toggleSidebar }) => {
     <header className="bg-weather-teal w-full relative">
       <div className="flex items-center justify-between  px-4 py-2">
         <div className="flex items-center">
-          <img src={ sunImg } alt="Sunny weather" className="w-28 h-28 mr-4" />
+          <img src={ sunImg } alt="Sunny weather" className="w-20 h-20 mr-4 object-contain" />
           <h1 className="bg-weather-teal text-teal-500 text-3xl md:text-5xl"><span className="text-amber-400">Weather</span>Link</h1>
         </div>
 

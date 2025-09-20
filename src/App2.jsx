@@ -19,7 +19,7 @@ const App2 = () => {
         <div className="flex flex-col h-screen bg-weather-teal">
           <Header />
           <div className="flex flex-1 overflow-hidden">
-            <Sidebar token={token} className="w-64 bg-gray-800 text-stone-200 min-h-screen" />
+            <Sidebar className="w-64 bg-gray-800 text-stone-200 min-h-screen" />
             <div className="flex-1 px-3 overflow-auto">
               <Outlet />
             </div>
