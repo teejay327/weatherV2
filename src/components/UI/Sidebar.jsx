@@ -17,6 +17,9 @@ const Sidebar = () => {
           }
         });
 
+        // token debug
+        console.log("[Sidebar] sending token:", token);
+
         setRecentLocations(response.data);
         console.log("[DEBUG] Recent locations fetched:", response.data)
       } catch(error) {

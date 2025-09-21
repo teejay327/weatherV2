@@ -44,7 +44,9 @@ const Login = () => {
         throw new Error(data.message || 'Login failed');
       }
 
-      //localStorage.setItem('token', data.token);
+      // Checking token
+      console.log('Login response data', data);
+      
       login(data.token);
       toast.success('Welcome back!');
       navigate('/');
