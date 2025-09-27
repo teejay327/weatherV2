@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from '../components/shared/hooks/form-hook.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/shared/hooks/use-auth.jsx';
+import { useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Card from '../components/UI/Elements/Card.jsx';
 import Input from '../../src/components/shared/FormElements/Input.jsx';
@@ -24,6 +25,7 @@ const Login = () => {
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -49,7 +51,9 @@ const Login = () => {
       
       login(data.token);
       toast.success('Welcome back!');
-      navigate('/');
+
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
     } catch(err) {
       console.error('Login failed:', err.message);
       toast.error('Login failed, please try again');
