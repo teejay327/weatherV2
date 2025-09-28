@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   // on login save token to state & localStorage
   const login =  useCallback((newToken) => {
-    if (newToken && storedToken.split(".").length === 3) {
+    if (newToken && newToken.split(".").length === 3) {
       setToken(newToken);
       localStorage.setItem("token", newToken);
       // token debug
