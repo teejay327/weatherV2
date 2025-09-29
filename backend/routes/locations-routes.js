@@ -6,10 +6,12 @@ import checkAuth from '../middleware/check-auth.js';
 
 const router = express.Router();
 
+// make sure all routes are protect, not just individual
+router.use(checkAuth);
 //Protected route for saving locations
-router.post('/', checkAuth, saveLocation);
+router.post('/', saveLocation);
 
 //Get recent locations for logged-in user (Protected)
-router.get('/recent', checkAuth, getRecentLocations);
+router.get('/recent', getRecentLocations);
 
 export default router;
