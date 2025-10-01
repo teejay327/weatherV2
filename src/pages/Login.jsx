@@ -101,6 +101,13 @@ const Login = () => {
             text-white rounded disabled:opacity-50">
           Login
         </button>
+
+        <p className="text-sm text-stone-300 mt-4">
+          don't have an account?{" "}
+          <a href="/signup" className="text-blue-400 hover:underline">
+            sign up here
+          </a>
+        </p>
       </form>
     </Card >
   );
