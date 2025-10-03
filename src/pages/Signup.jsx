@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/shared/hooks/use-auth.jsx';
 import toast from 'react-hot-toast';
 
@@ -49,7 +48,7 @@ const Signup = () => {
           className="w-full px-3 py-2 rounded bg-stone-700 text-stone-200"
           type="email"
           placeholder="email"
-          value="email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
