@@ -14,6 +14,4 @@ router.get('/protected', checkAuth, (req,res) => {
   res.json({ message: `Ahoy, ${req.user.email}! You've reached the secure harbour!` });
 });
 
-
-
 export default router;
