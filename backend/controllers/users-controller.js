@@ -68,4 +68,32 @@ const login = async(req, res) => {
   }
 };
 
-export default { signup, login };
+const validateToken = async(req,res) => {
+  try {
+    const {userId,email} = req.userData;
+
+    const existingUser = await User.findById(userId);
+    if (!existingUser) {
+      return res.status(404).json({ message: 'user not found'});
+    }
+
+    const newToken = jwt.sign(
+      { userId,email},
+      process.env.JWT_SECRET,
+      { expiresIn: '1d'}
+    );
+
+    res.status(200).json({
+      message: 'token valid',
+      token: newToken,
+      email,
+      userId
+    });
+
+  } catch(err) {
+    console.error('[ValidateToken] error:', err);
+    res.status(500).json({ message: 'token validation failed' });
+  }
+};
+
+export default { signup, login, validateToken };

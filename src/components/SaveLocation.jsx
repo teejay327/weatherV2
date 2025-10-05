@@ -56,11 +56,13 @@ const SaveLocation = ({ onLocationSaved }) => {
       case "success":
         return <p className="mt-4 text-center text-sm text-yellow-600">location saved successfully!</p>
       case "error":
-        return <p className="mt-4 text-center text-sm text-red-600"></p>
+        return <p className="mt-4 text-center text-sm text-red-600">{error || "failed to save location"}</p>
       default:
         return null;
     }
   }
+
+  const isDisabled = !location.trim() || status === "saving" || !token;
 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-6">
@@ -75,9 +77,14 @@ const SaveLocation = ({ onLocationSaved }) => {
           required
         />
           <button 
-            type="submit" 
-            disabled={!location.trim() || status === "saving" || !token} 
-            className="w-full bg-stone-500 text-stone-200 py-2 rounded-md hover:bg-blue-600">
+            type="submit"
+            disabled={isDisabled} 
+            className={`w-full ${
+              isDisabled ? 
+              "bg-stone-400 text-stone-200 cursor-not-allowed"
+              : "bg-blue-600 text-white hover:bg-blue-700"
+            } py-2 rounded-md transition`}
+          >
             {status === "saving" ? "saving ..." : "save location"}
           </button>
       </form>
