@@ -6,10 +6,12 @@ export const AuthContext = createContext({
   login: () => {},
   logout: () => {},
   isLoggedIn: false,
+  isLoading: false
 });
 
 export const AuthProvider = ({ children }) => {
   const [token,setToken] = useState(null);
+  const [isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage .getItem("token");
@@ -32,8 +34,8 @@ export const AuthProvider = ({ children }) => {
   // on login save token to state & localStorage
   const login =  useCallback((newToken) => {
     if (newToken && newToken.split(".").length === 3) {
-      setToken(newToken);
       localStorage.setItem("token", newToken);
+      setToken(newToken);
       // token debug
     console.log("[AuthProvider] login successful, token stored");
     } else {
@@ -50,8 +52,13 @@ export const AuthProvider = ({ children }) => {
 
   // validate token on startup
   useEffect(() => {
+    setIsLoading(true);
     const storedToken = localStorage.getItem('token');
-    if (!storedToken) return;
+    if (!storedToken) {
+      setIsLoading(false);
+      console.log('[AuthProvider] no token found on startup - skipping validation');
+      return;
+    };
 
     const validateToken = async() => {
       try {
@@ -73,6 +80,8 @@ export const AuthProvider = ({ children }) => {
         console.error('[AuthProvider] token validation error:', err);
         logout();
         toast.error('session validaion failed - please log in again');
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -93,7 +102,7 @@ export const AuthProvider = ({ children }) => {
         if (res.ok && data?.token) {
           localStorage.setItem('token', data.token);
           setToken(data.token);
-          console.log('[AuthProvider] silent token auto-refresh');
+          console.log('[AuthProvider] token auto-refreshed silently');
         } else {
           console.warn('[AuthProvider] auto-refresh failed - logging out');
           logout();
@@ -108,7 +117,7 @@ export const AuthProvider = ({ children }) => {
   }, [token, logout]);
 
   return (
-    <AuthContext.Provider value={{ token, isLoggedIn: !!token, login, logout }}>
+    <AuthContext.Provider value={{ token, isLoggedIn: !!token, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

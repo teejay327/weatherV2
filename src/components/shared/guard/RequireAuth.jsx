@@ -4,9 +4,17 @@ import toast from "react-hot-toast";
 import { useRef } from "react";
 
 const RequireAuth = ({ children }) => {
-  const { token } = useAuth();
+  const { token, isLoading } = useAuth();
   const location = useLocation();
   const warned = useRef(false);
+
+  if (isLoading) {
+    return (
+      <div className="py-8 text-center text-stone-400">
+        checking session
+      </div>
+    )
+  }
 
   if (!token) {
     if (!warned.current) {
