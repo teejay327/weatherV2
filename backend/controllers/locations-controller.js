@@ -1,5 +1,49 @@
 import Location from '../models/location.js';
+import GeocodeCache from '../models/geocode-cache.js';
 import axios from 'axios';
+
+// normalize a location name for the cache keys
+const normalizeName = (name) => name.trim().toLowerCase();
+
+// Geocode via OpenWeather (returns { lat, lon, displayName } or throws)
+const geocodeViaOpenWeather = async(query) => {
+  const apiKey = process.env.WEATHER_API_KEY;
+  if (!apiKey) {
+    throw Object.assign(new Error('WEATHER_API_KEY not configured'),{status:500});
+  }
+
+  const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(
+    query
+  )}&limit=1&appid=${apiKey}`;
+
+  const resp = await axios.get(url, { timeout:10000});
+  const arr = resp?.data;
+
+  if (!Array.isArray(arr) || arr.length === 0) {
+    const err = new Error('location not found');
+    err.status = 404;
+    throw err;
+  }
+
+  const first = arr[0];
+  const lat = Number(first.lat);
+  const lon = Number(first.lon);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+    const err = new Error('geocoding returned invalid co-ordinates');
+    err.status = 502;
+    throw err;
+  }
+
+  return { lat, lon, displayName: first.name || query };
+};
+
+/** WE ARE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * POST /api/locations
+ * Body: { location: "Brisbane" }
+ */
+
+
+
 
 const saveLocation = async(req, res) => {
   try {
