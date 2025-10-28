@@ -52,11 +52,66 @@ const saveLocation = async(req, res) => {
 
     // try cache
     // WE ARE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    let cache = await GeocodeCache.findOne({name: key}).exec();
+    let lat, lon, displayName;
+    let fromCache = false;
 
+    if (cache) {
+      fromCache = true;
+      lat = cache.lat;
+      lon = cache.lon;
+      displayName = cache.displayName || name;
+      console.debug('[SaveLocation] geocode cache HIT:', key);
+
+      cache.updatedAt = new Date();
+      cache.save().catch((e) => console.warn('[SaveLocation] cache touch failed', e));
+    } else {
+      console.debug('[SaveLocation] geocode cache MISS:', key);
+
+      // Provider call via helper
+      const geo = await geocodeViaOpenWeather(name);
+      lat = geo.lat;
+      lon = geo.lon;
+      displayName = geo.displayName;
+
+      // upsert into cache
+      try {
+        await GeocodeCache.findOneAndUpdate(
+          { name: key },
+          { name: key,
+            displayName,
+            lat,
+            lon,
+            source: 'openwewather',
+            updatedAt: new Date(),
+          },
+          { upsert: true,
+            new: true,
+            setDefaultsOnInsert: true
+          }
+        ).exec();
+
+      } catch(err) {
+        console.warn('[SaveLocation] cache upsert failed', err);
+      }
+    }
+
+    // persist userLocation
+    const newLocation = new Location({
+      location: displayName,
+      lat,
+      lon,
+      userId
+    });
+
+    const saved = await newLocation.save();
+    return res.status(201).json(saved);
   } catch(err) {
-    console.warn('[SaveLocation] cache upsert failed', err);
+    const code = err.status ?? 500;
+    if (code >= 500) console.error('error saving location:', err);
+    return res.status(code).json({message: err.message || 'failed to save location'});
   }
-}
+};
 
 // const saveLocation = async(req, res) => {
 //   try {
