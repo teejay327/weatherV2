@@ -32,3 +32,7 @@ GeocodeCacheSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
   next;
 });
+
+const GeocodeCache = mongoose.models.GeocodeCache || mongoose.model('GeocodeCache', GeocodeCacheSchema);
+
+export default GeocodeCache;
