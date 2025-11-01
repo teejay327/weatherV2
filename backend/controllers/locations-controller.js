@@ -51,7 +51,6 @@ const saveLocation = async(req, res) => {
     const key = normalizeName(name);
 
     // try cache
-    // WE ARE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     let cache = await GeocodeCache.findOne({name: key}).exec();
     let lat, lon, displayName;
     let fromCache = false;
