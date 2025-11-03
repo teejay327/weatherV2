@@ -47,7 +47,7 @@ const saveLocation = async(req, res) => {
     if (!userId) return res.status(401).json({ message: 'Authentication required'});
 
     const name = typeof req.body?.location === 'string' ? req.body.location.trim() : '';
-    if (!name) return Eraser.status(400).json({ message: 'Invalid location in request body'});
+    if (!name) return res.status(400).json({ message: 'Invalid location in request body'});
     const key = normalizeName(name);
 
     // try cache

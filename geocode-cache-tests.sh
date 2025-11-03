@@ -6,7 +6,7 @@
 
 # ------------- CONFIG -------------
 BASE_URL="http://localhost:5000/api"
-TOKEN="<YOUR_JWT_TOKEN_HERE>"  # Replace this with a valid JWT
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhjYzllMGEyN2Q3ZmQ4ODZmYjVjYmIiLCJlbWFpbCI6ImNhcHRhaW5Ad2VhdGhlcmFwcC5jb20iLCJpYXQiOjE3NjIxNjM4MjQsImV4cCI6MTc2MjI1MDIyNH0.Ia58IB2cuk76lxRS1A5_CIZ_ubBp7M5Aonyfy7PfwLc"  # Replace this with a valid JWT
 CONTENT="Content-Type: application/json"
 AUTH="Authorization: Bearer $TOKEN"
 # ---------------------------------
