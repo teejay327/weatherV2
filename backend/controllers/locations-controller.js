@@ -1,6 +1,7 @@
 import Location from '../models/location.js';
 import GeocodeCache from '../models/geocode-cache.js';
 import axios from 'axios';
+import momgoose from 'mongoose';
 
 // normalize a location name for the cache keys
 const normalizeName = (name) => name.trim().toLowerCase();
@@ -61,6 +62,19 @@ const saveLocation = async(req, res) => {
       lon = cache.lon;
       displayName = cache.displayName || name;
       console.debug('[SaveLocation] geocode cache HIT:', key);
+
+      if (!cache.displayName) {
+        (async () => {
+          try {
+
+          } else {
+            
+          }
+        })
+      }
+
+
+
 
       cache.updatedAt = new Date();
       cache.save().catch((e) => console.warn('[SaveLocation] cache touch failed', e));
