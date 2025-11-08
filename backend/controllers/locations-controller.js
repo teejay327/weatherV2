@@ -44,12 +44,15 @@ const saveLocation = async(req, res) => {
   try {
     console.log('[SaveLocation] user:', req.userData);
 
+    
+    
     // Auth & input checks
     const userId = req?.userData?.userId;
     if (!userId) return res.status(401).json({ message: 'Authentication required'});
 
     const name = typeof req.body?.location === 'string' ? req.body.location.trim() : '';
-    if (!name) return res.status(400).json({ message: 'Invalid location in request body'});
+    if (!name) return res.status(400).json({ message: 'location name is required'});
+    
     const key = normalizeName(name);
 
     // try cache
@@ -64,8 +67,6 @@ const saveLocation = async(req, res) => {
       displayName = cache.displayName || name;
       console.debug('[SaveLocation] geocode cache HIT:', key);
 
-
-      // We are here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       // if cache record but no displayName, try to fetch canonical name
       if (!cache.displayName) {
         (async () => {
@@ -78,7 +79,7 @@ const saveLocation = async(req, res) => {
                 displayName: geo.displayName,
                 lat: geo.lat,
                 lon: geo.lon,
-                updatedAt: new lastDayOfQuarter(),
+                updatedAt: new Date(),
                 source: 'openweather'
               },
               { new: true, setDefaultsOnInsert: true }
@@ -138,7 +139,7 @@ const saveLocation = async(req, res) => {
 
     // persist userLocation with canonical displayName when available
     const newLocation = new Location({
-      location: displayName,
+      location: displayName || name,
       lat,
       lon,
       userId
@@ -201,16 +202,23 @@ const saveLocation = async(req, res) => {
 
 const getRecentLocations = async(req, res) => {
   try {
+    const userId = req?.userData?.userId;
+    if (!userId) {
+      return res.status(401).json({ message: 'authentication required'});
+    }
+
     const locations = await Location.find({ userId: req.userData.userId })
       .sort({ createdAt: -1})
-      .limit(3);
+      .limit(3)
+      .lean()
+      .exec();
 
-    console.log("[DEBUG] GET RECENT LOCATIONS FOUND:", locations);
+    console.log('[DEBUG] GET RECENT LOCATIONS FOUND:', locations.length);
     
     res.status(200).json(locations);
   } catch(err) {
-      console.error('Error fetching recent locations', err);
-      res.status(500).json({ message: 'Failed to fetch recent locations' });
+      console.error('[getRecentLocations] error:', err);
+      return res.status(500).json({ message: 'Failed to fetch recent locations' });
   };
 };
 
