@@ -2,6 +2,7 @@ import Location from '../models/location.js';
 import GeocodeCache from '../models/geocode-cache.js';
 import axios from 'axios';
 import momgoose from 'mongoose';
+import { lastDayOfQuarter } from 'date-fns';
 
 // normalize a location name for the cache keys
 const normalizeName = (name) => name.trim().toLowerCase();
@@ -63,21 +64,41 @@ const saveLocation = async(req, res) => {
       displayName = cache.displayName || name;
       console.debug('[SaveLocation] geocode cache HIT:', key);
 
+
+      // We are here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // if cache record but no displayName, try to fetch canonical name
       if (!cache.displayName) {
         (async () => {
           try {
-
-          } else {
-            
+            const geo = await geocodeViaOpenWeather(name);
+            // update cache with canonical displayName & coordinates if they look !valid
+            await GeocodeCache.findOneAndUpdate(
+              { name: key },
+              {
+                displayName: geo.displayName,
+                lat: geo.lat,
+                lon: geo.lon,
+                updatedAt: new lastDayOfQuarter(),
+                source: 'openweather'
+              },
+              { new: true, setDefaultsOnInsert: true }
+            ).exec();
+            console.debug('[SaveLocation cache entry patched with displayName:', key);
+          } catch(e) {
+            // ignore background update errors
+            console.warn('[SaveLocation] background cache patch failed', e);
           }
-        })
+        })();
+      } else {
+        // touch updatedAt non-blocking
+        cache.updatedAt = new Date();
+        cache.save().catch((e) => console.warn('[SaveLocation] cache touch failed', e));
       }
 
-
-
-
-      cache.updatedAt = new Date();
-      cache.save().catch((e) => console.warn('[SaveLocation] cache touch failed', e));
+      
+      
+    
+    
     } else {
       console.debug('[SaveLocation] geocode cache MISS:', key);
 
@@ -95,7 +116,7 @@ const saveLocation = async(req, res) => {
             displayName,
             lat,
             lon,
-            source: 'openwewather',
+            source: 'openweather',
             updatedAt: new Date(),
           },
           { upsert: true,
@@ -109,7 +130,13 @@ const saveLocation = async(req, res) => {
       }
     }
 
-    // persist userLocation
+    // if we got here from cache, but didn't fill lat/lon yet, ensure they are set
+    if (fromCache && (lat === undefined || lon === undefined)) {
+      lat = cache.lat;
+      lon = cache.lon;
+    }
+
+    // persist userLocation with canonical displayName when available
     const newLocation = new Location({
       location: displayName,
       lat,
@@ -118,6 +145,8 @@ const saveLocation = async(req, res) => {
     });
 
     const saved = await newLocation.save();
+
+    // optionally include cached flag in dev; currently returnin saved doc for compatability
     return res.status(201).json(saved);
   } catch(err) {
     const code = err.status ?? 500;
