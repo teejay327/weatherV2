@@ -165,7 +165,7 @@ const getRecentLocations = async(req, res) => {
 
     const locations = await Location.find({ userId: req.userData.userId })
       .sort({ createdAt: -1})
-      .limit(3)
+      .limit(4)
       .lean()
       .exec();
 
