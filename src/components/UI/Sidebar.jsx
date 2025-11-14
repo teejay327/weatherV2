@@ -53,7 +53,7 @@ const Sidebar = () => {
                 </div>
                 {loc.lat && loc.lon && (
                   <div className="text-xs text-stone-400">
-                    Lat: {loc.lat}, Lon: {loc.lon}
+                    Lat: {loc.lat.toFixed(1)}, Lon: {loc.lon.toFixed(1)}
                   </div>
                 )}
                 {loc.weather && (
