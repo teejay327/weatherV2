@@ -2,3 +2,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mini-map-dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-map-dot-inner {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #22d3ee;
+  box-shadow:
+    0 0 6px #22d3ee,
+    0 0 12px #22d3ee,
+    0 0 18px #22d3ee;
+}

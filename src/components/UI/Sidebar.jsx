@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SaveLocation  from "../SaveLocation.jsx";
 import { useAuth } from "../shared/hooks/use-auth.jsx";
+import MiniNightMap from "../maps/MiniNightMap.jsx";
 
 const Sidebar = () => {
   const { token } = useAuth();
@@ -47,21 +48,50 @@ const Sidebar = () => {
         {recentLocations.length > 0 ? (
           <ul className="space-y-2">
             {recentLocations.map((loc) => (
+
               <li key={loc._id} className="p-2 bg-stone-700 rounded-md">
-                <div className="font-semibold">
-                  {loc.location}
-                </div>
+                <div className="font-semibold">{loc.location}</div>
+
                 {loc.lat && loc.lon && (
                   <div className="text-xs text-stone-400">
                     Lat: {loc.lat.toFixed(1)}, Lon: {loc.lon.toFixed(1)}
                   </div>
                 )}
+
                 {loc.weather && (
                   <div className="text-sm mt-1 italic">
                     {loc.weather.summary} - {loc.weather.temp}°C
                   </div>
-                )}                
+                )}
+
+                {/* Add mini map for each location */}
+                {loc.lat && loc.lon && (
+                  <div className="mt-2">
+                    <MiniNightMap location={{ lat: loc.lat, lon: loc.lon}} />
+                  </div>
+                )}
               </li>
+
+
+
+              // {/*
+              // <li key={loc._id} className="p-2 bg-stone-700 rounded-md">
+              //   <div className="font-semibold">
+              //     {loc.location}
+              //   </div>
+              //   {loc.lat && loc.lon && (
+              //     <div className="text-xs text-stone-400">
+              //       Lat: {loc.lat.toFixed(1)}, Lon: {loc.lon.toFixed(1)}
+              //     </div>
+              //   )}
+              //   {loc.weather && (
+              //     <div className="text-sm mt-1 italic">
+              //       {loc.weather.summary} - {loc.weather.temp}°C
+              //     </div>
+              //   )}                
+              // </li>
+              //   */}
+
             ))}
           </ul>
         ) : (
