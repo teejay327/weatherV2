@@ -26,14 +26,14 @@ const MiniNightMap = ({ location }) => {
         dragging={false}
         doubleClickZoom={false}
         zoomControl={false}
-        style={{ width: "100%", height: "100&"}}
+        style={{ width: "100%", height: "100%"}}
       >
         {/* Dark earth basemap */}
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}/{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
         />
-        <Marker position={center} icon={glowingDotIcon} />
+        <Marker position={centre} icon={glowingDotIcon} />
       </MapContainer>
     </div>
   )
