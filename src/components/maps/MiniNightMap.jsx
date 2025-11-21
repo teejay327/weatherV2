@@ -23,9 +23,10 @@ const MiniNightMap = ({ location }) => {
         center={centre}
         zoom={7}
         scrollWheelZoom={false}
-        dragging={false}
-        doubleClickZoom={false}
-        zoomControl={false}
+        dragging={true}
+        doubleClickZoom={true}
+        zoomControl={true}
+        className="h-full w-full"
         style={{ width: "100%", height: "100%"}}
       >
         {/* Dark earth basemap */}
