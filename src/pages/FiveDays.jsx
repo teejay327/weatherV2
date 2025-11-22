@@ -70,7 +70,8 @@ const FiveDays = () => {
       <div className='grid grid-cols-1 sm:grid-cols-5 gap-4'>
         {forecastData.map((day,index) => {
           return (
-            <div key={index} className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow">   
+            <div key={index} className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow 
+              transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">   
               <p className="font-semibold mt-2">{day.date}</p>
               <p className="flex flex-col items-center mt-2"> 
                 <WeatherIcon type={day.description} />
