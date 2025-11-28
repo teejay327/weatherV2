@@ -14,7 +14,7 @@ const generateTomorrowSummary = ({
 
   let tempSentence = "";
   if (maxTemp >= 30) {
-    tempSentence = `The afternoon will feel hot reaching up to ${maxTemp}.`
+    tempSentence = `The afternoon will feel hot reaching up to ${maxTemp}°C.`
   } else if (maxTemp<= 18) {
     tempSentence = `It will stay on the cooler side throughout the day.`
   } else {
@@ -38,7 +38,7 @@ const generateTomorrowSummary = ({
   } else {
     windSentence = `Expect a gentle to moderate breeze throughout the day.`
   } 
-  let finalSentence = `Sunrise will be at approximately ${sunrise} and sunset will be at approximately ${sunset}`;
+  let finalSentence = `Sunrise will be at approximately ${sunrise} and sunset will be at approximately ${sunset}.`;
 
   return [
     startSentence, 
