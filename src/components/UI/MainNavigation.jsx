@@ -72,6 +72,17 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
                 5 Days
               </NavLink>
             </li>
+            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+              <NavLink
+                to="/tomorrow"
+                className={({ isActive }) => 
+                  isActive ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
+                }
+                onClick={handleClick}
+              >
+                Tomorrow
+              </NavLink>
+            </li>
           </>
         )}
 

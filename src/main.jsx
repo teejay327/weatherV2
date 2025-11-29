@@ -12,6 +12,7 @@ import Charts from './pages/Charts.jsx';
 import CurrentLocation from './pages/CurrentLocation.jsx';
 import FiveDays from './pages/FiveDays.jsx';
 import ErrorPage from './pages/ErrorPage.jsx';
+import Tomorrow from './pages/Tomorrow.jsx';
 import RequireAuth from './components/shared/guard/RequireAuth.jsx';
 import './index.css';
 import 'leaflet/dist/leaflet.css';
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
           { path: 'search', element: <Search /> },
           { path: 'charts', element: <Charts /> },
           { path: 'location', element: <CurrentLocation /> },
-          { path: 'fivedays', element: <FiveDays /> }
+          { path: 'fivedays', element: <FiveDays /> },
+          { path: 'tomorrow', element: <Tomorrow /> }
         ]
       }
     ],
