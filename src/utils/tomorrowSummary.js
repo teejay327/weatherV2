@@ -1,52 +1,76 @@
 const generateTomorrowSummary = ({
-  locationName,
-  minTemp,
-  maxTemp,
-  description,
-  humidity,
-  windSpeed,
-  rainChance,
-  sunrise,
-  sunset
-}) => {
+  locationName = 'this location',
+  minTemp = null,
+  maxTemp = null,
+  description = "partly cloudy",
+  humidity = null,
+  windSpeed = null,
+  rainChance = null,
+  sunrise = "a typical sunrise time",
+  sunset = "a typical sunset time"
+} = {}) => {
 
-  const startSentence = `Tomorrow at ${locationName} will be ${description.toLowerCase()} with temperatures ranging from ${minTemp}°C to ${maxTemp}°C.`
+  const safeDescription = description.toLowerCase();
 
-  let tempSentence = "";
-  if (maxTemp >= 30) {
-    tempSentence = `The afternoon will feel hot reaching up to ${maxTemp}°C.`
-  } else if (maxTemp<= 18) {
-    tempSentence = `It will stay on the cooler side throughout the day.`
-  } else {
-    tempSentence = `The temperature should remain comfortable for most of the day.`;
-  }
+  const hasMin = typeof minTemp === "number";
+  const hasMax = typeof maxTemp === "number";
+
+  const startSentence = hasMin && hasMax 
+    ? `Tomorrow at ${locationName} will be ${safeDescription} with temperatures ranging from ${minTemp}°C to ${maxTemp}°C.`
+    : `Tomorrow at ${locationName} will be ${safeDescription}.`;
+
+  // let tempSentence = "";
+  // if (maxTemp >= 30) {
+  //   tempSentence = `The afternoon will feel hot reaching up to ${maxTemp}°C.`
+  // } else if (maxTemp<= 18) {
+  //   tempSentence = `It will stay on the cooler side throughout the day.`
+  // } else {
+  //   tempSentence = `The temperature should remain comfortable for most of the day.`;
     
   let rainSentence = "";
-  if (rainChance >= 60) {
-    rainSentence = `There is a strong chance of showers, so take an umbrella!`
-  } else if (rainChance < 30) {
-    rainSentence = `Rain is unlikely, making it a great day for outdoor fun!`;
-  } else {
-    rainSentence = `A few light showers are possible in the afternoon or evening.`
+  if (typeof rainSentence === "number") {
+    if (rainChance >= 60) {
+      rainSentence = `There is a strong chance of showers, so take an umbrella!`
+    } else if (rainChance < 20) {
+      rainSentence = `Rain is unlikely, making it a great day for outdoor fun!`;
+    } else {
+      rainSentence = `A few light showers are possible in the afternoon or evening.`
+    }
   }
 
   let windSentence = "";
-   if (windSpeed >= 30) {
-    windSentence = `Winds will be quite strong, so conditions may feel gusty at times.`
-  } else if (windSpeed < 15) {
-    windSentence = `Winds should stay light, keeping conditions calm.`
-  } else {
-    windSentence = `Expect a gentle to moderate breeze throughout the day.`
-  } 
-  let finalSentence = `Sunrise will be at approximately ${sunrise} and sunset will be at approximately ${sunset}.`;
+  if (typeof windSentence === "number") {
+    if (windSpeed >= 30) {
+      windSentence = `Winds will be quite strong, so conditions may feel gusty at times.`
+    } else if (windSpeed <= 10) {
+      windSentence = `Winds should stay light, keeping conditions calm.`
+    } else {
+      windSentence = `Expect a gentle to moderate breeze throughout the day.`
+    } 
+  }
+
+  let humiditySentence = "";
+  if (typeof humidity === "number") {
+    if (humidity > 70) {
+      humiditySentence = `It will feel sticky.`
+    } else if (humidity <= 40) {
+      humiditySentence = `The air should be dry and pleasant.`
+    } else {
+      humiditySentence = `It could feel a bit humid.`
+    }
+  }
+
+  const finalSentence = `Sunrise will be at around ${sunrise} and sunset around ${sunset}.`;
 
   return [
     startSentence, 
-    tempSentence,
     rainSentence,
     windSentence,
+    humiditySentence,
     finalSentence
-  ].join(" ");
-}
+  ]
+    .filter(Boolean)
+    .join(" ");
+};
 
 export default generateTomorrowSummary;
