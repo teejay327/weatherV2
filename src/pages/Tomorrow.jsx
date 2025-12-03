@@ -1,6 +1,59 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 import generateTomorrowSummary from "../utils/tomorrowSummary";
 
-const Tomorrow = ({
+const Tomorrow = () => {
+  const location = useLocation();
+  const params= new URLSearchParams(location.search);
+  const place = params.get("place");
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if (!place) {
+      setError("No location selected");
+      setLoading(false);
+      return;
+    }
+
+    const fetchTomorrow = async() => {
+      try {
+
+      } catch(err) {
+        console.error(err);
+        setError("failed to load tomorrow's forecast");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTomorrow();
+  }, [place]);
+
+  if (loading) {
+    return (
+      <main className="p-4 text-slate-100">
+        <p>loading tomorrow&apos;s forecast ...</p>
+      </main>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <main className="p-4 text-slate-100">
+        <p>{error || "No data available for tomorrow"}</p>
+      </main>
+    );
+  }
+
+
+
+
+
+const {
   locationName,
   minTemp,
   maxTemp,
@@ -10,7 +63,8 @@ const Tomorrow = ({
   rainChance,
   sunrise,
   sunset
-}) => {
+} = data;
+
   const summary = generateTomorrowSummary({
     locationName,
     minTemp,
