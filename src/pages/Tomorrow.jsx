@@ -21,7 +21,28 @@ const Tomorrow = () => {
 
     const fetchTomorrow = async() => {
       try {
+        setLoading(true);
+        setError("");
 
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        const response = await axios.get("http://localhost:5000/api/weather/tomorrow", {
+          params: { place }
+        });
+
+// 🔧 ADAPT this mapping to your actual response structure
+        const t = response.data.tomorrow; // e.g. { minTemp, maxTemp, humidity, ... }
+
+        setData({
+          locationName: response.data.locationName || place,
+          minTemp: t.minTemp,
+          maxTemp: t.maxTemp,
+          description: t.description,
+          humidity: t.humidity,
+          windSpeed: t.windSpeed,
+          rainChance: t.rainChance,
+          sunrise: t.sunrise,
+          sunset: t.sunset
+        });   
       } catch(err) {
         console.error(err);
         setError("failed to load tomorrow's forecast");
