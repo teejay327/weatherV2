@@ -24,8 +24,8 @@ const Tomorrow = () => {
         setLoading(true);
         setError("");
 
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        const response = await axios.get("http://localhost:5000/api/weather/tomorrow", {
+       // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        const response = await axios.get("http://localhost:5000/api/weather", {
           params: { place }
         });
 
