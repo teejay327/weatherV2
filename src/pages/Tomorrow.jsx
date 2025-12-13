@@ -24,24 +24,57 @@ const Tomorrow = () => {
         setLoading(true);
         setError("");
 
-       // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+       // Hope the api is correct!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         const response = await axios.get("http://localhost:5000/api/weather", {
-          params: { place }
+          params: { city: place }
         });
 
+        
 // 🔧 ADAPT this mapping to your actual response structure
-        const t = response.data.tomorrow; // e.g. { minTemp, maxTemp, humidity, ... }
+        const d = response.data; // e.g. { minTemp, maxTemp, humidity, ... }
 
+        //Helpers
+        const round = (n) => (typeof n === "number" ? Math.round(n) : null);
+        const clampPercent = (n) => {
+          return typeof n === "number" ? Math.max(0, Math.min(100, Math.round(n))) : null;
+        }
+
+        // Base values from backend (today)
+        const tempNow = typeof d.temperature === "number" ? d.temperature : null;
+        const humidityNow = typeof d.humidity === "number" ? d.humidity : null;
+        const windNow = typeof d.wind_kph === "number" ? d.wind_kph : null;
+        const rainfallNow = typeof d.rainfall === "number" ? d.rainfall : null;
+
+        // pseudo tomorrow heuristics
+        const pseudoMin = tempNow !== null ? round(tempNow - 3) : null;
+        const pseudoMax = tempNow !== null ? round(tempNow + 2) : null;
+
+        // description from humidity/wind/rainfall
+        let pseudoDesc = "partly cloudy";
+        if (rainfallNow !== null && rainfallNow > 1) pseudoDesc = "showers possible";
+        else if (humidityNow !== null && humidityNow >= 75) pseudoDesc = "humid and partly cloudy";
+        else if (windNow !== null && windNow >= 28) pseudoDesc = "breezy with broken clouds";
+        else pseudoDesc = "mostly clear";
+
+        // chance of rain
+        let pseudoRainChance = null;
+        if (rainfallNow !== null && rainfallNow > 1) pseudoRainChance  = 65;
+        else if (humidityNow !== null && humidityNow >= 75) pseudoRainChance = 45;
+        else if (humidityNow !== null && humidityNow >= 60) pseudoRainChance = 25
+        else if (humidityNow !== null) pseudoRainChance = 15;
+        pseudoRainChance = clampPercent(pseudoRainChance);
+
+        // set data that Tomorrow page expects
         setData({
-          locationName: response.data.locationName || place,
-          minTemp: t.minTemp,
-          maxTemp: t.maxTemp,
-          description: t.description,
-          humidity: t.humidity,
-          windSpeed: t.windSpeed,
-          rainChance: t.rainChance,
-          sunrise: t.sunrise,
-          sunset: t.sunset
+          locationName: d.city || place,
+          minTemp: pseudoMin ?? 18,
+          maxTemp: pseudoMax ?? 26,
+          description: pseudoDesc,
+          humidity: humidityNow ?? null,
+          windSpeed: windNow ?? null,
+          rainChance: pseudoRainChance,
+          sunrise: "--",
+          sunset: "--"
         });   
       } catch(err) {
         console.error(err);
@@ -69,9 +102,6 @@ const Tomorrow = () => {
       </main>
     );
   }
-
-
-
 
 
 const {
@@ -103,7 +133,7 @@ const {
       <header className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-4">
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
           Tomorrow at{" "}
-          <span className="text=teal-300">
+          <span className="text-teal-300">
             {locationName || "your location"}
           </span>
         </h1>
@@ -123,7 +153,7 @@ const {
 
       <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="rounded-xl bg-slate-900/80 border border-slate-700/80 p-3">
-          <p className="text=xs uppercase tracking-wide text-slate-400">
+          <p className="text-xs uppercase tracking-wide text-slate-400">
             Min / Max
           </p>
           <p className="mt-1 text-lg font-semibold">
@@ -138,7 +168,7 @@ const {
           </p>
           <p className="mt-1 text-lg font-semibold">
             { rainChance }
-            <span classname="text-sm">%</span>
+            <span className="text-sm">%</span>
           </p>
         </div>
 
@@ -148,7 +178,7 @@ const {
           </p>
           <p className="mt-1 text-lg font-semibold">
             { humidity }
-            <span classname="text-sm">%</span>
+            <span className="text-sm">%</span>
           </p>
         </div>
 
