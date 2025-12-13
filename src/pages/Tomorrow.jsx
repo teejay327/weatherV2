@@ -128,6 +128,8 @@ const {
     sunset
   });
 
+  const displayPct = (v) => (typeof v === "number" ? `${v}%` : "--");
+
   return (
     <main className="flex flex-col gap-6 p-4 md:p-6 lg:p-8 text-slate-100">
       <header className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-4">
@@ -167,8 +169,7 @@ const {
             Rain chance
           </p>
           <p className="mt-1 text-lg font-semibold">
-            { rainChance }
-            <span className="text-sm">%</span>
+            {displayPct(rainChance)}
           </p>
         </div>
 
@@ -177,7 +178,7 @@ const {
             Humidity
           </p>
           <p className="mt-1 text-lg font-semibold">
-            { humidity }
+            {displayPct(humidity)}
             <span className="text-sm">%</span>
           </p>
         </div>
