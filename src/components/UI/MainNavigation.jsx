@@ -7,7 +7,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   const activeLink = params.get("show");
-  const place = params.get("place");
+  const place = params.get("place") || localStorage.getItem("lastPlace");
   const { token, logout } = useAuth();
   const isLoggedIn = !!token;
 
@@ -74,7 +74,7 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
             </li>
             <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
               <NavLink
-                to="/tomorrow"
+                to={place ? `/tomorrow?place=${encodeURIComponent(place)}` : "/search"}
                 className={({ isActive }) => 
                   isActive ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
                 }

@@ -34,7 +34,11 @@ const CurrentLocation = () => {
         setError(`No weather data could be found for that location`);
       }
     };
-    if (place) fetchWeather();
+    if (place) {
+      fetchWeather();
+      localStorage.setItem("lastPlace", place);
+    }
+    
   }, [place]);
 
   if (error) {

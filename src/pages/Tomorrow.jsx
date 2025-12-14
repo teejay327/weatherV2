@@ -134,7 +134,7 @@ const {
     <main className="flex flex-col gap-6 p-4 md:p-6 lg:p-8 text-slate-100">
       <header className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-4">
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          Tomorrow at{" "}
+          Tomorrow's weather for{" "}
           <span className="text-teal-300">
             {locationName || "your location"}
           </span>
@@ -146,7 +146,7 @@ const {
 
       <section className="rounded-xl bg-slate-900/80 border border-slate-700/80 shadow-lg p-4 md:p-6">
         <h2 className="text-lg font-semibold mb-3 text-slate-100">
-          Tomorrow's story
+          The weather
         </h2>
         <p className="text-sm md:text-base leading-relaxed text-slate-200">
           { summary }
