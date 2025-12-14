@@ -144,7 +144,7 @@ const {
         </p>
       </header>
 
-      <section className="rounded-xl bg-slate-900/80 border border-slate-700/80 shadow-lg p-4 md:p-6">
+      <section className="rounded-xl bg-weather-teal-offset border border-slate-700/80 shadow-lg p-4 md:p-6">
         <h2 className="text-lg font-semibold mb-3 text-slate-100">
           The weather
         </h2>
@@ -154,7 +154,7 @@ const {
       </section>
 
       <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="rounded-xl bg-slate-900/80 border border-slate-700/80 p-3">
+        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">
             Min / Max
           </p>
@@ -164,7 +164,7 @@ const {
           </p>
         </div>
 
-        <div className="rounded-xl bg-slate-900/80 border border-slate-700/80 p-3">
+        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">
             Rain chance
           </p>
@@ -173,7 +173,7 @@ const {
           </p>
         </div>
 
-        <div className="rounded-xl bg-slate-900/80 border border-slate-700/80 p-3">
+        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">
             Humidity
           </p>
@@ -183,7 +183,7 @@ const {
           </p>
         </div>
 
-        <div className="rounded-xl bg-slate-900/80 border border-slate-700/80 p-3">
+        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">
             Wind
           </p>
@@ -193,7 +193,7 @@ const {
           </p>
         </div>
 
-        <div className="rounded-xl bg-slate-900/80 border border-slate-700/80 p-3">
+        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">
             Sunrise
           </p>
@@ -202,7 +202,7 @@ const {
           </p>
         </div>
 
-        <div className="rounded-xl bg-slate-900/80 border border-slate-700/80 p-3">
+        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
           <p className="text-xs uppercase tracking-wide text-slate-400">
             Sunset
           </p>
