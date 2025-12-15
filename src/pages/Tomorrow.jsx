@@ -6,7 +6,7 @@ import generateTomorrowSummary from "../utils/tomorrowSummary";
 const Tomorrow = () => {
   const location = useLocation();
   const params= new URLSearchParams(location.search);
-  const place = params.get("place");
+  const place = params.get("place") || localStorage.getItem("lastPlace");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -24,13 +24,10 @@ const Tomorrow = () => {
         setLoading(true);
         setError("");
 
-       // Hope the api is correct!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         const response = await axios.get("http://localhost:5000/api/weather", {
           params: { city: place }
         });
 
-        
-// 🔧 ADAPT this mapping to your actual response structure
         const d = response.data; // e.g. { minTemp, maxTemp, humidity, ... }
 
         //Helpers
@@ -135,7 +132,7 @@ const {
       <header className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-4">
         <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
           Tomorrow's weather for{" "}
-          <span className="text-teal-300">
+          <span className="text-teal-500">
             {locationName || "your location"}
           </span>
         </h1>

@@ -29,14 +29,18 @@ const CurrentLocation = () => {
         const data = await res.json();
         setWeather(data);
         console.log('Received weather data:', data);
+        
+        localStorage.setItem("lastPlace", place);
+        localStorage.setItem("lastCityName", data.city || place);
+
       } catch(err) {
         console.error('Unable to fetch weather for current location:', err);
         setError(`No weather data could be found for that location`);
       }
     };
+    
     if (place) {
       fetchWeather();
-      localStorage.setItem("lastPlace", place);
     }
     
   }, [place]);
