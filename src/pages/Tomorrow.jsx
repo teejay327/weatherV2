@@ -57,7 +57,7 @@ const Tomorrow = () => {
         let pseudoRainChance = null;
         if (rainfallNow !== null && rainfallNow > 1) pseudoRainChance  = 65;
         else if (humidityNow !== null && humidityNow >= 75) pseudoRainChance = 45;
-        else if (humidityNow !== null && humidityNow >= 60) pseudoRainChance = 25
+        else if (humidityNow !== null && humidityNow >= 60) pseudoRainChance = 25;
         else if (humidityNow !== null) pseudoRainChance = 15;
         pseudoRainChance = clampPercent(pseudoRainChance);
 
@@ -128,87 +128,85 @@ const {
   const displayPct = (v) => (typeof v === "number" ? `${v}%` : "--");
 
   return (
-    <main className="flex flex-col gap-6 p-4 md:p-6 lg:p-8 text-slate-100">
-      <header className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-4">
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          Tomorrow's weather for{" "}
+    <div className="bg-stone-800 text-slate-200 p-6 rounded-g shadow-lg">
+        <h2 className="text-2xl mb-4">
+          Tomorrow forecast for{" "}
           <span className="text-teal-500">
             {locationName || "your location"}
           </span>
-        </h1>
+        </h2>
+        
         <p className="text-sm text-slate-300/80">
           A simple forecast to let you plan the day.
         </p>
-      </header>
 
-      <section className="rounded-xl bg-weather-teal-offset border border-slate-700/80 shadow-lg p-4 md:p-6">
-        <h2 className="text-lg font-semibold mb-3 text-slate-100">
-          The weather
-        </h2>
-        <p className="text-sm md:text-base leading-relaxed text-slate-200">
+      <section 
+        className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+          duration-200 hover:scale-[1.03] hover:shadow-xl"
+      >
+        <p className="font-semibold mt-2">The weather</p>
+        <p className="text-sm md:text-base leading-relaxed mt-2 px-4">
           { summary }
         </p>
       </section>
 
-      <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
-          <p className="text-xs uppercase tracking-wide text-slate-400">
+    {/* We are here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+        <div 
+          className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+            duration-200 hover-scale-[1.03] hover:shadow-xl">
+          <p className="text-xs uppercase tracking-wide opacity-80">
             Min / Max
           </p>
-          <p className="mt-1 text-lg font-semibold">
-            {minTemp}°C{" "}
-            <span className="text-sm text-slate-400"> {maxTemp}°C</span>
+          <p className="text-lg mt-2">
+            <span className="font-bold">{minTemp}</span> --{" "}
+            <span className="font-bold">{maxTemp}°C</span>
           </p>
         </div>
 
-        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
-          <p className="text-xs uppercase tracking-wide text-slate-400">
-            Rain chance
-          </p>
-          <p className="mt-1 text-lg font-semibold">
-            {displayPct(rainChance)}
-          </p>
+        <div 
+          className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+            duration-200 hover:scale-[1.03] hover:shadow-xl"
+          >
+            <p className="text-xs uppercase tracking-wide opacity-80">Rain chance</p>
+            <p className="text-lg mt-2 font-bold">{displayPct(rainChance)}</p>
         </div>
 
-        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
-          <p className="text-xs uppercase tracking-wide text-slate-400">
-            Humidity
-          </p>
-          <p className="mt-1 text-lg font-semibold">
-            {displayPct(humidity)}
-            <span className="text-sm">%</span>
-          </p>
+        <div
+          className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-trasnsform
+            duration-200 hover:scale[1.03] hover-shadow-xl">
+            <p className="text-xs uppercase tracking-wide opacity-80">Humidity</p>
+            <p className="text-lg mt-2 font-bold">{displayPct(humidity)}</p>
         </div>
 
-        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
-          <p className="text-xs uppercase tracking-wide text-slate-400">
-            Wind
-          </p>
-          <p className="mt-1 text-lg font-semibold">
-            { windSpeed }
-          <span className="text-sm"> km/h</span>
-          </p>
+        <div className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+          duration-200 hover:scale[1.03] hover:shadow-xl"
+        >
+          <p className="text-xs uppercase tracking-wide opacity-80">Wind</p>
+          <p className="text-lg font-bold">{typeof windSpeed === "number" ? `${windSpeed} km/h` : "--"}</p>
         </div>
 
-        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
-          <p className="text-xs uppercase tracking-wide text-slate-400">
-            Sunrise
-          </p>
-          <p className="mt-1 text-lg font-semibold">
-            { sunrise }
-          </p>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div
+            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-200 hover:scale[1.03] haver:shadow-xl">
+            <p className="text-xs uppercase tracking-wide opacity-80">Sunrise</p>
+            <p className="text-lg mt-2 font-bold">{sunrise || "--"}</p>      
+          </div>
+          
+          <div 
+            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-200 hover:scale[1.03] hover:shadow-xl"
+            >
+            <p className="text-xs uppercase tracking-wide opacity-80">Sunset</p>
+            <p className="text-lg mt-2 font-bold">{sunset || "--"}</p>
+          </div>
+        
         </div>
 
-        <div className="rounded-xl bg-weather-teal-offset border border-slate-700/80 p-3">
-          <p className="text-xs uppercase tracking-wide text-slate-400">
-            Sunset
-          </p>
-          <p className="mt-1 text-lg font-semibold">
-            { sunset }
-          </p>
-        </div>
-      </section>
-    </main>
+
+      </div>
+    </div>
   )
 };
 
