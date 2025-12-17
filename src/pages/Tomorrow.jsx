@@ -128,8 +128,9 @@ const {
   const displayPct = (v) => (typeof v === "number" ? `${v}%` : "--");
 
   return (
-    <div className="bg-stone-800 text-slate-200 p-6 rounded-g shadow-lg">
-        <h2 className="text-2xl mb-4">
+    <div className="bg-stone-800 text-slate-200 p-6 rounded-lg shadow-lg">
+      <header className="mb-8">
+        <h2 className="text-2xl mb-2">
           Tomorrow forecast for{" "}
           <span className="text-teal-500">
             {locationName || "your location"}
@@ -139,61 +140,54 @@ const {
         <p className="text-sm text-slate-300/80">
           A simple forecast to let you plan the day.
         </p>
+      </header>
+        
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <aside className="md:col-span-1 space-y-4">
+          <div 
+            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-200 hover:scale-[1.03] hover:shadow-xl">
+            <p className="text-xs uppercase tracking-wide opacity-80">
+              Min / Max
+            </p>
+            <p className="text-lg mt-2">
+              <span className="font-bold">{minTemp}</span> -{" "}
+              <span className="font-bold">{maxTemp}°C</span>
+            </p>
+          </div>
 
-      <section 
-        className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-          duration-200 hover:scale-[1.03] hover:shadow-xl"
-      >
-        <p className="font-semibold mt-2">The weather</p>
-        <p className="text-sm md:text-base leading-relaxed mt-2 px-4">
-          { summary }
-        </p>
-      </section>
-
-    {/* We are here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
-        <div 
-          className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-            duration-200 hover-scale-[1.03] hover:shadow-xl">
-          <p className="text-xs uppercase tracking-wide opacity-80">
-            Min / Max
-          </p>
-          <p className="text-lg mt-2">
-            <span className="font-bold">{minTemp}</span> --{" "}
-            <span className="font-bold">{maxTemp}°C</span>
-          </p>
-        </div>
-
-        <div 
-          className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-            duration-200 hover:scale-[1.03] hover:shadow-xl"
-          >
+          <div 
+            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-200 hover:scale-[1.03] hover:shadow-xl"
+            >
             <p className="text-xs uppercase tracking-wide opacity-80">Rain chance</p>
             <p className="text-lg mt-2 font-bold">{displayPct(rainChance)}</p>
-        </div>
+          </div>
 
-        <div
-          className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-trasnsform
-            duration-200 hover:scale[1.03] hover-shadow-xl">
-            <p className="text-xs uppercase tracking-wide opacity-80">Humidity</p>
-            <p className="text-lg mt-2 font-bold">{displayPct(humidity)}</p>
-        </div>
-
-        <div className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-          duration-200 hover:scale[1.03] hover:shadow-xl"
-        >
-          <p className="text-xs uppercase tracking-wide opacity-80">Wind</p>
-          <p className="text-lg font-bold">{typeof windSpeed === "number" ? `${windSpeed} km/h` : "--"}</p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 mt-4">
           <div
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-              duration-200 hover:scale[1.03] haver:shadow-xl">
+              duration-200 hover:scale[1.03] hover:shadow-xl"
+            >
+            <p className="text-xs uppercase tracking-wide opacity-80">Humidity</p>
+            <p className="text-lg mt-2 font-bold">{displayPct(humidity)}</p>
+          </div>
+
+            
+          <div 
+            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-200 hover:scale[1.03] hover:shadow-xl"
+            >
+            <p className="text-xs uppercase tracking-wide opacity-80">Wind</p>
+            <p className="text-lg font-bold">{typeof windSpeed === "number" ? `${windSpeed} km/h` : "--"}</p>
+          </div>
+
+          <div
+            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-200 hover:scale[1.03] hover:shadow-xl">
             <p className="text-xs uppercase tracking-wide opacity-80">Sunrise</p>
             <p className="text-lg mt-2 font-bold">{sunrise || "--"}</p>      
           </div>
-          
+            
           <div 
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale[1.03] hover:shadow-xl"
@@ -201,10 +195,17 @@ const {
             <p className="text-xs uppercase tracking-wide opacity-80">Sunset</p>
             <p className="text-lg mt-2 font-bold">{sunset || "--"}</p>
           </div>
-        
-        </div>
+        </aside>
 
-
+        <section 
+          className="bg-stone-600 text-stone-200 text-center rounded p-6 shadow transition-transform
+            duration-200 hover:scale-[1.03] hover:shadow-xl md:col-span-2"
+          >
+          <h3 className="text-lg font-semibold mb-3 text-xenter">The weather</h3>
+          <p className="text-sm md:text-base leading-relaxed text-center">
+            { summary }
+          </p>
+        </section>
       </div>
     </div>
   )
