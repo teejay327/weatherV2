@@ -206,11 +206,14 @@ const {
         </aside>
 
         <section 
-          className="bg-stone-600 text-stone-200 text-center rounded p-6 shadow transition-transform
+          className="bg-stone-600/90 text-stone-200 text-center rounded p-6 shadow transition-transform
             duration-200 hover:scale-[1.03] hover:shadow-xl md:col-span-2"
           >
+          <span className="inline-block mb-2 text-xs px-2 py-1 rounded bg-stone-500/60">
+            Estimated forecast
+          </span>
           <h3 className="text-lg font-semibold mb-3 text-center">The weather</h3>
-          <p className="text-sm md:text-base leading-relaxed text-left">
+          <p className="max-w-prose mx-auto text-sm md:text-base leading-relaxed text-left">
             { summary }
           </p>
         </section>
