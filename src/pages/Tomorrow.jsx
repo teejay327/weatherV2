@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import generateTomorrowSummary from "../utils/tomorrowSummary";
+import { ThermometerIcon } from "lucide-react";
+import RainIcon from "../components/icons/RainIcon";
+import HumidityIcon from "../components/icons/HumidityIcon";
+
+// import ThermometerIcon from "../components/icons/THermometerIcon";
+// import RainIcon from "../components/icons/RainIcon";
+// import HumidityIcon from "../components/icons/HumidityIcon";
+// import SunriseIcon from "../components/icons/SunriseIcon";
+// import SunsetIcon from "../components/icons/SunsetIcon";
+// import WindIcon from "../components/icons/WindIcon";
 
 const Tomorrow = () => {
   const location = useLocation();
@@ -148,6 +158,10 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
+
+            {/* <ThermometerIcon className="mx-auto mb-2 h-6 w-6 text-teal-300" /> ///////////////////////////////
+            <p className="text-xs uppercase tracking-wide text-slate-400">Min / Max</p> */}
+
             <p className="text-2xl mb-1">🌡️</p>
             <p className="text-xs uppercase tracking-wide opacity-80">
               Min / Max
@@ -162,6 +176,10 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
+            
+            {/* <RainIcon className="mx-auto mb-2 h-6 w-6 text-teal-300" /> ///////////////////////////////
+            <p className="text-xs uppercase tracking-wide text-slate-400">Rain chance</p> */}
+
             <p className="text-2xl mb-1">🌧️</p>
             <p className="text-xs uppercase tracking-wide opacity-80">Rain chance</p>
             <p className="text-lg mt-2 font-bold">{displayPct(rainChance)}</p>
@@ -171,6 +189,10 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
+            
+            {/* <HumidityIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/> /////////////////////////////
+            <p className="text-xs uppercase tracking-wide text-slate-400">displayPct(humidity)</p> */}
+
             <p className="text-2xl mb-1">💧</p>
             <p className="text-xs uppercase tracking-wide opacity-80">Humidity</p>
             <p className="text-lg mt-2 font-bold">{displayPct(humidity)}</p>
@@ -181,6 +203,9 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
+            {/* <WindIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/> ///////////////////////////
+            <p className="text-xs uppercase tracking-wide opacity-80">Wind</p> */}
+
             <p className="text-2xl mb-1">🌬️</p>
             <p className="text-xs uppercase tracking-wide opacity-80">Wind</p>
             <p className="text-lg font-bold">{typeof windSpeed === "number" ? `${windSpeed} km/h` : "--"}</p>
@@ -190,6 +215,10 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
+            
+            {/* <SunriseIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/> /////////////////////////
+            <p className="text-xs uppercase tracking-wide opacity-80">{sunrise || "--"}</p> */}
+
             <p className="text-2xl mb-1">🌅</p>
             <p className="text-xs uppercase tracking-wide opacity-80">Sunrise</p>
             <p className="text-lg mt-2 font-bold">{sunrise || "--"}</p>      
@@ -199,6 +228,11 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
+            
+            {/* <SunsetIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/> /////////////////////
+            <p className="text=xs uppercase tracking-wide opacity-80">{ sunset || "--"</p> */}
+
+
             <p className="text-2xl mb-1">🌇</p>
             <p className="text-xs uppercase tracking-wide opacity-80">Sunset</p>
             <p className="text-lg mt-2 font-bold">{sunset || "--"}</p>
