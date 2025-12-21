@@ -155,14 +155,8 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
-
             <ThermometerIcon className="mx-auto mb-2 h-6 w-6 text-teal-300" />
             <p className="text-xs uppercase tracking-wide text-slate-400">Min / Max</p>
-
-            {/* <p className="text-2xl mb-1">🌡️</p>
-            <p className="text-xs uppercase tracking-wide opacity-80">
-              Min / Max
-            </p> */}
             <p className="text-lg mt-2">
               <span className="font-bold">{minTemp}</span> -{" "}
               <span className="font-bold">{maxTemp}°C</span>
@@ -173,12 +167,8 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
-            
             <RainIcon className="mx-auto mb-2 h-6 w-6 text-teal-300" />
             <p className="text-xs uppercase tracking-wide text-slate-400">Rain chance</p>
-
-            {/* <p className="text-2xl mb-1">🌧️</p>
-            // <p className="text-xs uppercase tracking-wide opacity-80">Rain chance</p> */}
             <p className="text-lg mt-2 font-bold">{displayPct(rainChance)}</p>
           </div>
 
@@ -186,12 +176,8 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
-            
             <HumidityIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
-            <p className="text-xs uppercase tracking-wide text-slate-400">displayPct(humidity)</p>
-
-            {/* <p className="text-2xl mb-1">💧</p>
-            <p className="text-xs uppercase tracking-wide opacity-80">Humidity</p>*/}
+            <p className="text-xs uppercase tracking-wide text-slate-400">Humidity</p>
             <p className="text-lg mt-2 font-bold">{displayPct(humidity)}</p>
           </div>
 
@@ -202,9 +188,6 @@ const {
             >
             <WindIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
             <p className="text-xs uppercase tracking-wide opacity-80">Wind</p>
-
-            {/* <p className="text-2xl mb-1">🌬️</p>
-            <p className="text-xs uppercase tracking-wide opacity-80">Wind</p> */}
             <p className="text-lg font-bold">{typeof windSpeed === "number" ? `${windSpeed} km/h` : "--"}</p>
           </div>
 
@@ -212,11 +195,8 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
-            
             <SunriseIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
             <p className="text-xs uppercase tracking-wide opacity-80">{sunrise || "--"}</p>
-
-            {/* <p className="text-2xl mb-1">🌅</p> */}
             <p className="text-xs uppercase tracking-wide opacity-80">Sunrise</p>
             <p className="text-lg mt-2 font-bold">{sunrise || "--"}</p>      
           </div>
@@ -225,12 +205,8 @@ const {
             className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
               duration-200 hover:scale-[1.03] hover:shadow-xl"
             >
-            
             <SunsetIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
             <p className="text=xs uppercase tracking-wide opacity-80">{ sunset || "--"}</p>
-
-{/* 
-            <p className="text-2xl mb-1">🌇</p> */}
             <p className="text-xs uppercase tracking-wide opacity-80">Sunset</p>
             <p className="text-lg mt-2 font-bold">{sunset || "--"}</p>
           </div>
