@@ -1,4 +1,4 @@
-const HumidityIcon = ({ className="" }) => {
+const ThermometerIcon = ({ className="" }) => {
   return (
     <svg 
       viewBox="0 0 24 24"
@@ -10,10 +10,10 @@ const HumidityIcon = ({ className="" }) => {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M12 2s6 7 6 12a6 6 0 0 1-12 0c0-5 6-12 6-12Z" />
-      <path d="M10 14a2.5 2.5 0 0 0 4 0" />
+      <path d="M14 14.76V5a2 2 0 0 0-4 0v9.76a4 4 0 1 0 4 0Z" />
+      <path d="M12 9v8" />
     </svg>
   )
 }
 
-export default HumidityIcon;
+export default ThermometerIcon;
