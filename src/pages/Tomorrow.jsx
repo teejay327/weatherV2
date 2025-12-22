@@ -10,6 +10,16 @@ import SunriseIcon from "../components/icons/SunriseIcon";
 import SunsetIcon from "../components/icons/SunsetIcon";
 import WindIcon from "../components/icons/WindIcon";
 
+const formatSunTime = (unixSeconds, timezoneOffsetSeconds = 0) => {
+  if (!unixSeconds || typeof unixSeconds !== "number") return "--";
+  const d = new Date((unixSeconds + timezoneOffsetSeconds) * 1000);
+  return d.toLocaleTimeString("en-AU", {
+    timezone: "UTC",
+    hour: "2-digit",
+    minute: "2-digit"
+  })
+}
+
 const Tomorrow = () => {
   const location = useLocation();
   const params= new URLSearchParams(location.search);
@@ -31,11 +41,11 @@ const Tomorrow = () => {
         setLoading(true);
         setError("");
 
-        const response = await axios.get("http://localhost:5000/api/weather", {
+        const cityRes = await axios.get("http://localhost:5000/api/weather/city", {
           params: { city: place }
         });
 
-        const d = response.data; // e.g. { minTemp, maxTemp, humidity, ... }
+        const d = cityRes.data; // e.g. { minTemp, maxTemp, humidity, ... }
 
         //Helpers
         const round = (n) => (typeof n === "number" ? Math.round(n) : null);
@@ -68,6 +78,24 @@ const Tomorrow = () => {
         else if (humidityNow !== null) pseudoRainChance = 15;
         pseudoRainChance = clampPercent(pseudoRainChance);
 
+        const lat = d.lat ?? d.latitude ?? d.coord?.lat;
+        const lon = d.lon ?? d.longitude ?? d.coord.lon;
+
+        let sunriseStr = "--";
+        let sunsetStr = "--";
+
+        if (typeof lat === "number" && typeof lon === "number") {
+          const coordsRes = await axios.get("http://localhost:5000/api/weather/coords", {
+            params: { lat, lon }
+          });
+
+          const c = coordsRes.data;
+          const tz = typeof c.timezoneOffset === "number" ? c.timezoneOffset : 0;
+
+          sunriseStr = formatSunTime(c.sunrise, tz);
+          sunsetStr = formatSunTime(c.sunset, tz);
+        }
+        
         // set data that Tomorrow page expects
         setData({
           locationName: d.city || place,
@@ -77,8 +105,8 @@ const Tomorrow = () => {
           humidity: humidityNow ?? null,
           windSpeed: windNow ?? null,
           rainChance: pseudoRainChance,
-          sunrise: "--",
-          sunset: "--"
+          sunrise: sunriseStr,
+          sunset: sunsetStr
         });   
       } catch(err) {
         console.error(err);

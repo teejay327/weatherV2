@@ -31,7 +31,10 @@ const getWeatherByCoords = async(req,res) => {
       humidity: data.main.humidity,
       windSpeed: data.wind.speed,
       sunrise: data.sys.sunrise,
-      sunset: data.sys.sunset
+      sunset: data.sys.sunset,
+      lat: data.coord?.lat,
+      lon: data.coord?.lon,
+      timezoneOffset: data.timezone
     })
     
   } catch(err) {
