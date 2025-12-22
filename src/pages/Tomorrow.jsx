@@ -152,11 +152,12 @@ const {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <aside className="md:col-span-1 space-y-4">
           <div 
-            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-              duration-200 hover:scale-[1.03] hover:shadow-xl"
+            className="group bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-300 hover:scale-[1.03] hover:shadow-xl"
             >
-            <ThermometerIcon className="mx-auto mb-2 h-6 w-6 text-teal-300" />
-            <p className="text-xs uppercase tracking-wide text-slate-400">Min / Max</p>
+            <ThermometerIcon className="mx-auto mb-2 h-6 w-6 text-teal-300 transition-colors duration-200 
+              group-hover:scale-110 group-hover:text-teal-200" />
+            <p className="text-xs uppercase tracking-wide">Min / Max</p>
             <p className="text-lg mt-2">
               <span className="font-bold">{minTemp}</span> -{" "}
               <span className="font-bold">{maxTemp}°C</span>
@@ -164,59 +165,63 @@ const {
           </div>
 
           <div 
-            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-              duration-200 hover:scale-[1.03] hover:shadow-xl"
+            className="group bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-300 hover:scale-[1.03] hover:shadow-xl"
             >
-            <RainIcon className="mx-auto mb-2 h-6 w-6 text-teal-300" />
-            <p className="text-xs uppercase tracking-wide text-slate-400">Rain chance</p>
+            <RainIcon className="mx-auto mb-2 h-6 w-6 text-teal-300 transition-colors duration-200
+              group-hover:scale-110 group-hover:text-teal-200" />
+            <p className="text-xs uppercase tracking-wide opacity-80">Rain chance</p>
             <p className="text-lg mt-2 font-bold">{displayPct(rainChance)}</p>
           </div>
 
           <div
-            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-              duration-200 hover:scale-[1.03] hover:shadow-xl"
+            className="group bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
+              duration-300 hover:scale-[1.03] hover:shadow-xl"
             >
-            <HumidityIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
-            <p className="text-xs uppercase tracking-wide text-slate-400">Humidity</p>
+            <HumidityIcon className="mx-auto mb-2 h-6 w-6 text-teal-300 transition-colors duration-200 
+              group-hover:scale-110 group-hover:text-teal-200"/>
+            <p className="text-xs uppercase tracking-wide opacity-80">Humidity</p>
             <p className="text-lg mt-2 font-bold">{displayPct(humidity)}</p>
           </div>
 
             
           <div 
-            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-              duration-200 hover:scale-[1.03] hover:shadow-xl"
+            className="group bg-stone-600 text-center rounded py-4 shadow transition-transform
+              duration-300 hover:scale-[1.03] hover:shadow-xl"
             >
-            <WindIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
+            <WindIcon className="mx-auto mb-2 h-6 w-6 text-teal-300 transition-colors duration-200
+              group-hover:scale-110 group-hover:text-teal-200"/>
             <p className="text-xs uppercase tracking-wide opacity-80">Wind</p>
             <p className="text-lg font-bold">{typeof windSpeed === "number" ? `${windSpeed} km/h` : "--"}</p>
           </div>
 
           <div
-            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-              duration-200 hover:scale-[1.03] hover:shadow-xl"
+            className="group bg-stone-600 text-center rounded py-4 shadow transition-transform
+              duration-300 hover:scale-[1.03] hover:shadow-xl"
             >
-            <SunriseIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
-            <p className="text-xs uppercase tracking-wide opacity-80">{sunrise || "--"}</p>
+            <SunriseIcon className="mx-auto mb-2 h-6 w-6 text-teal-300 transition-colors duration-200
+              group-hover:scale-110 group-hover:text-teal-200"/>
             <p className="text-xs uppercase tracking-wide opacity-80">Sunrise</p>
             <p className="text-lg mt-2 font-bold">{sunrise || "--"}</p>      
           </div>
             
           <div 
-            className="bg-stone-600 text-stone-200 text-center rounded py-4 shadow transition-transform
-              duration-200 hover:scale-[1.03] hover:shadow-xl"
+            className="group bg-stone-600 text-center rounded py-4 shadow transition-transform
+              duration-300 hover:scale-[1.03] hover:shadow-xl"
             >
-            <SunsetIcon className="mx-auto mb-2 h-6 w-6 text-teal-300"/>
-            <p className="text=xs uppercase tracking-wide opacity-80">{ sunset || "--"}</p>
+            <SunsetIcon className="mx-auto mb-2 h-6 w-6 text-teal-300 transition-colors duration-200
+              group-hover:scale-110 group-hover:text-teal-200"/>
             <p className="text-xs uppercase tracking-wide opacity-80">Sunset</p>
             <p className="text-lg mt-2 font-bold">{sunset || "--"}</p>
           </div>
         </aside>
 
         <section 
-          className="bg-stone-600/90 text-stone-200 text-center rounded p-6 shadow transition-transform
+          className="group bg-stone-600/90 text-center rounded p-6 shadow transition-transform
             duration-200 hover:scale-[1.03] hover:shadow-xl md:col-span-2"
           >
-          <span className="inline-block mb-2 text-xs px-2 py-1 rounded bg-stone-500/60">
+          <span className="inline-block mb-2 text-xs px-2 py-1 rounded bg-stone-500/60 transition-colors
+            duration-300 group-hover:bg-stone-400/60">
             Estimated forecast
           </span>
           <h3 className="text-lg font-semibold mb-3 text-center">The weather</h3>
