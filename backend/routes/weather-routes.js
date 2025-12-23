@@ -1,8 +1,10 @@
 import express from 'express';
-import { getWeatherByCoords } from "../controllers/weather-controller.js";
+import { getWeatherByCity, getWeatherByCoords } from "../controllers/weather-controller.js";
 
 const router = express.Router();
 
-router.get("/", getWeatherByCoords);
+router.get("/", getWeatherByCity);
+router.get("/city", getWeatherByCity);
+router.get("/coords", getWeatherByCoords);
 
 export default router;

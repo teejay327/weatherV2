@@ -17,7 +17,8 @@ const Home = () => {
       const updated = {};
       for (const city of cities) {
         try {
-          const res = await fetch(`http://localhost:5000/api/weather?city=${city}`);
+          const res = await fetch(`http://localhost:5000/api/weather/city?city=${encodeURIComponent(city)}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const data = await res.json();
           updated[city] = {
             temp: data.temperature,
@@ -47,11 +48,13 @@ const Home = () => {
               {weatherData[city] ? (
                 <>
                   <span>{Math.floor(weatherData[city].temp)}° C</span>
-                  <img 
-                    src={weatherData[city].icon}
-                    alt={weatherData[city].condition}
-                    className="inline w-12 h-12"
-                  />
+                  {weatherData[city]?.icon && (
+                    <img 
+                      src={weatherData[city].icon}
+                      alt={weatherData[city].condition || "weather icon"}
+                      className="inline w-12 h-12"
+                    />
+                  )}
                   <span className="text-lg">{weatherData[city].condition}</span>
                 </>
               ) : (

@@ -24,41 +24,41 @@ app.use('/api/users', userRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/weather', weatherRoutes);
 
-app.get('/api/weather', async(req, res) => {
-  const city = req.query.city;
-  if (!city) {
-    return res.status(400).json({ error: 'Please choose a city to get the forecast'})
-  }
+// app.get('/api/weather', async(req, res) => {
+//   const city = req.query.city;
+//   if (!city) {
+//     return res.status(400).json({ error: 'Please choose a city to get the forecast'})
+//   }
 
-  try {
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather`,
-      {
-        params: {
-          q:city,
-          appid: API_KEY,
-          units: 'metric'
-        }
-      }
-    );
+//   try {
+//     const response = await axios.get(
+//       `https://api.openweathermap.org/data/2.5/weather`,
+//       {
+//         params: {
+//           q:city,
+//           appid: API_KEY,
+//           units: 'metric'
+//         }
+//       }
+//     );
 
-    const data = response.data;
-    console.log("ICON CODE:", data.weather[0].icon);
-    res.json({
-      city: data.name,
-      temperature: data.main.temp,
-      condition: data.weather[0].description,
-      icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
-      humidity: data.main.humidity,
-      rainfall: data.rain?.['1h'] || 0,
-      wind_kph: data.wind.speed,
-      wind_dir: data.wind.deg
-    });
-  } catch (error) {
-    console.error('API error for ${city}:', error.message);
-    res.status(500).json({ error: 'Failed to retrieve weather data'});
-  }
-});
+//     const data = response.data;
+//     console.log("ICON CODE:", data.weather[0].icon);
+//     res.json({
+//       city: data.name,
+//       temperature: data.main.temp,
+//       condition: data.weather[0].description,
+//       icon: `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
+//       humidity: data.main.humidity,
+//       rainfall: data.rain?.['1h'] || 0,
+//       wind_kph: data.wind.speed,
+//       wind_dir: data.wind.deg
+//     });
+//   } catch (error) {
+//     console.error('API error for ${city}:', error.message);
+//     res.status(500).json({ error: 'Failed to retrieve weather data'});
+//   }
+// });
 
 mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,

@@ -14,10 +14,10 @@ const formatSunTime = (unixSeconds, timezoneOffsetSeconds = 0) => {
   if (!unixSeconds || typeof unixSeconds !== "number") return "--";
   const d = new Date((unixSeconds + timezoneOffsetSeconds) * 1000);
   return d.toLocaleTimeString("en-AU", {
-    timezone: "UTC",
+    timeZone: "UTC",
     hour: "2-digit",
     minute: "2-digit"
-  })
+  });
 }
 
 const Tomorrow = () => {
@@ -79,7 +79,7 @@ const Tomorrow = () => {
         pseudoRainChance = clampPercent(pseudoRainChance);
 
         const lat = d.lat ?? d.latitude ?? d.coord?.lat;
-        const lon = d.lon ?? d.longitude ?? d.coord.lon;
+        const lon = d.lon ?? d.longitude ?? d.coord?.lon;
 
         let sunriseStr = "--";
         let sunsetStr = "--";
