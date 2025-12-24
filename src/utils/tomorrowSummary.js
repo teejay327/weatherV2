@@ -33,7 +33,7 @@ const generateTomorrowSummary = ({
 
   if (typeof rainChance === "number") {
     if (rainChance >= 60) parts.push("Rain is likely at times.") 
-    else if (rainChance >= 30) parts.push("Rain is possible, so have a backup plan.");
+    else if (rainChance >= 30) parts.push("Rain is possible, so make sure you have a backup plan.");
     else parts.push("Rain is unlikely the whole day.");
   }
 
