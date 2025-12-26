@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Charts from './Charts';
 import FiveDays from './FiveDays';
+import { apiUrl } from "../lib/api.js";
 
 const Home = () => {
 
@@ -17,7 +18,7 @@ const Home = () => {
       const updated = {};
       for (const city of cities) {
         try {
-          const res = await fetch(`http://localhost:5000/api/weather/city?city=${encodeURIComponent(city)}`);
+          const res = await fetch(apiUrl(`api/weather/city?city=${encodeURIComponent(city)}`));  
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const data = await res.json();
           updated[city] = {

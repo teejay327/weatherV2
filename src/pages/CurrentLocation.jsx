@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import DisplayDate from '../components/shared/util/DisplayDate.jsx';
 import Charts from '../pages/Charts.jsx';
 import FiveDays from '../pages/FiveDays.jsx';
+import { apiUrl } from "../lib/api.js";
 
 const getCompassDirection = (deg) => {
   const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
@@ -21,7 +22,7 @@ const CurrentLocation = () => {
     const fetchWeather = async() => {
       setError(null);
       try {
-        const res = await fetch(`http://localhost:5000/api/weather?city=${place}`);
+        const res = await fetch(apiUrl(`/api/weather?city=${place}`));
         if (!res.ok) {
           const msg = await res.text();
           throw new Error(`Location not found: ${msg}`);

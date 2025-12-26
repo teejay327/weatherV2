@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import generateTomorrowSummary from "../utils/tomorrowSummary";
+import { apiUrl } from "../lib/api.js";
 
 import ThermometerIcon from "../components/icons/Thermometer";
 import RainIcon from "../components/icons/RainIcon";
@@ -41,10 +42,10 @@ const Tomorrow = () => {
         setLoading(true);
         setError("");
 
-        const cityRes = await axios.get("http://localhost:5000/api/weather/city", {
+        const cityRes = await axios.get(apiUrl("/api/weather/city", {
           params: { city: place }
-        });
-
+        }));
+        
         const d = cityRes.data; // e.g. { minTemp, maxTemp, humidity, ... }
 
         //Helpers
@@ -85,9 +86,10 @@ const Tomorrow = () => {
         let sunsetStr = "--";
 
         if (typeof lat === "number" && typeof lon === "number") {
-          const coordsRes = await axios.get("http://localhost:5000/api/weather/coords", {
-            params: { lat, lon }
-          });
+          const coordsRes = await axios.get(apiUrl("/api/weather/coords", 
+            {params: { lat, lon }
+          }));
+
 
           const c = coordsRes.data;
           const tz = typeof c.timezoneOffset === "number" ? c.timezoneOffset : 0;
