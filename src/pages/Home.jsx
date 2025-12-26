@@ -18,7 +18,7 @@ const Home = () => {
       const updated = {};
       for (const city of cities) {
         try {
-          const res = await fetch(apiUrl(`api/weather/city?city=${encodeURIComponent(city)}`));  
+          const res = await fetch(apiUrl(`/api/weather/city?city=${encodeURIComponent(city)}`));  
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const data = await res.json();
           updated[city] = {

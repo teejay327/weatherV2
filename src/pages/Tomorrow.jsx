@@ -42,9 +42,9 @@ const Tomorrow = () => {
         setLoading(true);
         setError("");
 
-        const cityRes = await axios.get(apiUrl("/api/weather/city", {
+        const cityRes = await axios.get(apiUrl("/api/weather/city"), {
           params: { city: place }
-        }));
+        });
         
         const d = cityRes.data; // e.g. { minTemp, maxTemp, humidity, ... }
 
@@ -111,7 +111,10 @@ const Tomorrow = () => {
           sunset: sunsetStr
         });   
       } catch(err) {
-        console.error(err);
+        console.error(
+          "Tomorrow fetch failed",
+          err?.response?.status,
+          err?.response?.data || err?.message);
         setError("failed to load tomorrow's forecast");
       } finally {
         setLoading(false);
