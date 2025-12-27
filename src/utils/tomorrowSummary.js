@@ -51,7 +51,7 @@ const generateTomorrowSummary = ({
   }
 
   if (isRealTime(sunrise) && isRealTime(sunset)) {
-    parts.push(`Sunrise will be around ${sunrise} and set around ${sunset}.`);
+    parts.push(`Sunrise will be around ${sunrise} and sunset around ${sunset}.`);
   }
 
   if (typeof rainChance === "number") {

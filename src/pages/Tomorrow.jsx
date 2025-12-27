@@ -19,7 +19,7 @@ const formatSunTime = (unixSeconds, timezoneOffsetSeconds = 0) => {
     hour: "2-digit",
     minute: "2-digit"
   });
-}
+};
 
 const Tomorrow = () => {
   const location = useLocation();
@@ -86,9 +86,9 @@ const Tomorrow = () => {
         let sunsetStr = "--";
 
         if (typeof lat === "number" && typeof lon === "number") {
-          const coordsRes = await axios.get(apiUrl("/api/weather/coords", 
+          const coordsRes = await axios.get(apiUrl("/api/weather/coords"), 
             {params: { lat, lon }
-          }));
+          });
 
 
           const c = coordsRes.data;
