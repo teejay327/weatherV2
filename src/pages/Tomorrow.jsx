@@ -16,7 +16,7 @@ const formatSunTime = (unixSeconds, timezoneOffsetSeconds = 0) => {
   const d = new Date((unixSeconds + timezoneOffsetSeconds) * 1000);
   return d.toLocaleTimeString("en-AU", {
     timeZone: "UTC",
-    hour: "2-digit",
+    hour: "numeric",
     minute: "2-digit"
   });
 };
@@ -46,7 +46,7 @@ const Tomorrow = () => {
           params: { city: place }
         });
         
-        const d = cityRes.data; // e.g. { minTemp, maxTemp, humidity, ... }
+        const cityWeather = cityRes.data; // e.g. { minTemp, maxTemp, humidity, ... }
 
         //Helpers
         const round = (n) => (typeof n === "number" ? Math.round(n) : null);
@@ -57,7 +57,7 @@ const Tomorrow = () => {
         // Base values from backend (today)
         const tempNow = typeof d.temperature === "number" ? d.temperature : null;
         const humidityNow = typeof d.humidity === "number" ? d.humidity : null;
-        const windNow = typeof d.wind_kph === "number" ? d.wind_kph : null;
+        const windNow = typeof d.wind_kph === "number" ? Math.round(d.wind_kph) : null;
         const rainfallNow = typeof d.rainfall === "number" ? d.rainfall : null;
 
         // pseudo tomorrow heuristics
@@ -79,8 +79,8 @@ const Tomorrow = () => {
         else if (humidityNow !== null) pseudoRainChance = 15;
         pseudoRainChance = clampPercent(pseudoRainChance);
 
-        const lat = d.lat ?? d.latitude ?? d.coord?.lat;
-        const lon = d.lon ?? d.longitude ?? d.coord?.lon;
+        const lat = cityWeather.lat ?? cityWeather.latitude ?? cityWeather.coord?.lat;
+        const lon = cityWeather.lon ?? cityWeather.longitude ?? cityWeather.coord?.lon;
 
         let sunriseStr = "--";
         let sunsetStr = "--";
@@ -91,11 +91,11 @@ const Tomorrow = () => {
           });
 
 
-          const c = coordsRes.data;
-          const tz = typeof c.timezoneOffset === "number" ? c.timezoneOffset : 0;
+          const sunData = coordsRes.data;
+          const timezoneOffset = typeof sunData.timezoneOffset === "number" ? sunData.timezoneOffset : 0;
 
-          sunriseStr = formatSunTime(c.sunrise, tz);
-          sunsetStr = formatSunTime(c.sunset, tz);
+          sunriseStr = formatSunTime(sunData.sunrise, timezoneOffset);
+          sunsetStr = formatSunTime(sunData.sunset, timezoneOffset);
         }
         
         // set data that Tomorrow page expects
