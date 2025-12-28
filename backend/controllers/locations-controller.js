@@ -2,7 +2,6 @@ import Location from '../models/location.js';
 import GeocodeCache from '../models/geocode-cache.js';
 import axios from 'axios';
 import mongoose from 'mongoose';
-import { lastDayOfQuarter } from 'date-fns';
 
 // normalize a location name for the cache keys
 const normalizeName = (name) => name.trim().toLowerCase();

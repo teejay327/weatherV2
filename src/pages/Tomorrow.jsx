@@ -13,8 +13,8 @@ import WindIcon from "../components/icons/WindIcon";
 
 const formatSunTime = (unixSeconds, timezoneOffsetSeconds = 0) => {
   if (!unixSeconds || typeof unixSeconds !== "number") return "--";
-  const d = new Date((unixSeconds + timezoneOffsetSeconds) * 1000);
-  return d.toLocaleTimeString("en-AU", {
+  const date = new Date((unixSeconds + timezoneOffsetSeconds) * 1000);
+  return date.toLocaleTimeString("en-AU", {
     timeZone: "UTC",
     hour: "numeric",
     minute: "2-digit"
@@ -55,10 +55,10 @@ const Tomorrow = () => {
         }
 
         // Base values from backend (today)
-        const tempNow = typeof d.temperature === "number" ? d.temperature : null;
-        const humidityNow = typeof d.humidity === "number" ? d.humidity : null;
-        const windNow = typeof d.wind_kph === "number" ? Math.round(d.wind_kph) : null;
-        const rainfallNow = typeof d.rainfall === "number" ? d.rainfall : null;
+        const tempNow = typeof cityWeather.temperature === "number" ? cityWeather.temperature : null;
+        const humidityNow = typeof cityWeather.humidity === "number" ? cityWeather.humidity : null;
+        const windNow = typeof cityWeather.wind_kph === "number" ? Math.round(cityWeather.wind_kph) : null;
+        const rainfallNow = typeof cityWeather.rainfall === "number" ? cityWeather.rainfall : null;
 
         // pseudo tomorrow heuristics
         const pseudoMin = tempNow !== null ? round(tempNow - 3) : null;
@@ -100,7 +100,7 @@ const Tomorrow = () => {
         
         // set data that Tomorrow page expects
         setData({
-          locationName: d.city || place,
+          locationName: cityWeather.city || place,
           minTemp: pseudoMin ?? 18,
           maxTemp: pseudoMax ?? 26,
           description: pseudoDesc,
