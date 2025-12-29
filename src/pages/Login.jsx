@@ -8,6 +8,8 @@ import Card from '../components/UI/Elements/Card.jsx';
 import Input from '../../src/components/shared/FormElements/Input.jsx';
 import { VALIDATOR_REQUIRE, VALIDATOR_EMAIL, VALIDATOR_MINLENGTH } from '../components/shared/util/validators.js';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 const Login = () => {
 
   const [formState, inputHandler] = useForm(
@@ -32,7 +34,7 @@ const Login = () => {
     console.log('LOGIN FORM DATA:', formState.inputs);
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
+      const response = await fetch(`${API_BASE}/api/users/login`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
