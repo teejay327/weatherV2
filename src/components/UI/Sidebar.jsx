@@ -4,6 +4,8 @@ import SaveLocation  from "../SaveLocation.jsx";
 import { useAuth } from "../shared/hooks/use-auth.jsx";
 import MiniNightMap from "../maps/MiniNightMap.jsx";
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 const Sidebar = () => {
   const { token } = useAuth();
   const [isOpen, setIsOpen ] = useState(false);
@@ -12,7 +14,7 @@ const Sidebar = () => {
     const fetchRecentLocations = async() => {
       if (!token) return;
       try {
-        const response = await axios.get("http://localhost:5000/api/locations/recent", {
+        const response = await axios.get(`${API_BASE}/api/locations/recent`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

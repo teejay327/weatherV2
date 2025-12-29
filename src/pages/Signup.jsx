@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../components/shared/hooks/use-auth.jsx';
 import toast from 'react-hot-toast';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 const Signup = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ const Signup = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/users/signup", {
+      const res = await fetch(`${API_BASE}/api/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify({email,password})

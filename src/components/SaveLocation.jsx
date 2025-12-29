@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useAuth } from './shared/hooks/use-auth.jsx';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
+
 const SaveLocation = ({ onLocationSaved }) => {
   const { token } = useAuth();
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ const SaveLocation = ({ onLocationSaved }) => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/locations',
+        `${API_BASE}/api/locations`,
         { location: location.trim() },
         {
           headers: {
