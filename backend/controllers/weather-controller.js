@@ -105,7 +105,7 @@ const getFiveDayForecastByCity = async(req,res) => {
     return res.status(200).json(response.data);
 
   } catch(err) {
-    console.err("[getFiveDayForecastByCity] error:", err?.response?.data || err);
+    console.error("[getFiveDayForecastByCity] error:", err?.response?.data || err);
     return res
       .status(err?.response?.status || 500)
       .json({ message: "Failed to fetch 5-day forecast"});
