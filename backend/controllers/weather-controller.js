@@ -87,4 +87,29 @@ const getWeatherByCoords = async(req,res) => {
   }
 }
 
-export { getWeatherByCity, getWeatherByCoords };
+const getFiveDayForecastByCity = async(req,res) => {
+  try {
+    const { city } = req.query;
+    if (!city) {
+      return res.status(400).json({ message: "city is required"});
+    }
+
+    const apikey = process.env.WEATHER_API_KEY;
+    if (!apikey) {
+      return res.status(500).json({ message: "weather api key not configured!"});
+    }
+
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodedURIComponent(city)}&units=metric&appid=${apiKey}`;
+    
+    const response = await axios.get(url, { timeout: 10000 });
+    return res.status(200).json(response.data);
+
+  } catch(err) {
+    console.err("[getFiveDayForecastByCity] error:", err?.response?.data || err);
+    return res
+      .status(err?.response?.status || 500)
+      .json({ message: "Failed to fetch 5-day forecast"});
+  }
+};
+
+export { getWeatherByCity, getWeatherByCoords, getFiveDayForecastByCity };
