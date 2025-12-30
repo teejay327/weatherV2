@@ -99,7 +99,7 @@ const getFiveDayForecastByCity = async(req,res) => {
       return res.status(500).json({ message: "weather api key not configured!"});
     }
 
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodedURIComponent(city)}&units=metric&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`;
     
     const response = await axios.get(url, { timeout: 10000 });
     return res.status(200).json(response.data);
