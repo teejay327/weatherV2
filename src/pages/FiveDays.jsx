@@ -10,17 +10,25 @@ const FiveDays = () => {
   const [forecastData, setForecastData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const key = import.meta.env.VITE_WEATHER_API_KEY;
+  // const key = import.meta.env.VITE_WEATHER_API_KEY;
+  const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const fetchForecast = async() => {
       setLoading(true);
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${key}`
+          // `https://api.openweathermap.org/data/2.5/forecast?q=${place}&units=metric&appid=${key}`
+          `${API_BASE}/api/weather/forecast?city=${encodeURIComponent(place)}`
         );
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message || "failed to fetch forecast");
+        }
+
         const data = await res.json();
-        if (data.cod !== '200') throw new Error(data.message);
+        if (!data?.list) throw new Error(data?.message || "forecast data missing!");
 
         // Group forecast into days
         const grouped = {};
@@ -82,7 +90,7 @@ const FiveDays = () => {
                 <span className="font-bold">{day.maxTemp}°C</span>
               </p>
               <p className="text-sm mt-1">Chance of rain: {day.rainChance}%</p>
-              <p className="text-sm">Amount of rain: {Math.floor(day.rainAmount)}mm</p>
+              <p className="text-sm">Amount of rain: {Number(day.rainAmount).toFixed(0)}mm</p>
             </div>
           )
         })}
