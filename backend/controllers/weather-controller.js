@@ -24,7 +24,7 @@ const getWeatherByCity = async(req,res) => {
     const icon = iconCode ? `https://openweathermap.org/img/wn/${iconCode}@2x.png` : null;
 
     const windKph = typeof data.wind?.speed === "number" ? data.wind.speed * 3.6 : null;
-    const rainfall = typeof data.rain?.["ih"] === "number" ? data.rain["1h"] : 0;
+    const rainfall = typeof data.rain?.["1h"] === "number" ? data.rain["1h"] : 0;
     
     return res.status(200).json({
       city: data.name,
@@ -42,7 +42,7 @@ const getWeatherByCity = async(req,res) => {
     });
 
   } catch(err) {
-    console.error("[DEBUGgetWeatherBy City] error:", message);
+    console.error("[DEBUG getWeatherByCity] error:", err?.response?.data || err);
     return res.status(500).json({ message:"Failed to fetch weather from city api"});
   }
 };
@@ -94,8 +94,8 @@ const getFiveDayForecastByCity = async(req,res) => {
       return res.status(400).json({ message: "city is required"});
     }
 
-    const apikey = process.env.WEATHER_API_KEY;
-    if (!apikey) {
+    const apiKey = process.env.WEATHER_API_KEY;
+    if (!apiKey) {
       return res.status(500).json({ message: "weather api key not configured!"});
     }
 
