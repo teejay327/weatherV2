@@ -105,10 +105,17 @@ const getFiveDayForecastByCity = async(req,res) => {
     return res.status(200).json(response.data);
 
   } catch(err) {
-    console.error("[getFiveDayForecastByCity] error:", err?.response?.data || err);
-    return res
-      .status(err?.response?.status || 500)
-      .json({ message: "Failed to fetch 5-day forecast"});
+    const status = err?.response?.status || 500;
+    const upstream = err?.response?.data;
+
+    console.error(
+      "[getFiveDayForecastByCity] error:",
+      status,
+      upstream || err?.message || err,
+      // err?.response?.data || err);
+    );
+
+    return res.status(status).json({ message: upstream?.message || err?.message || "Failed to fetch 5-day forecast"});
   }
 };
 
