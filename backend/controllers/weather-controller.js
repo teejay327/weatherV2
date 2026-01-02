@@ -1,7 +1,4 @@
-import dotenv from 'dotenv';
 import axios from 'axios';
-
-dotenv.config();
 
 const getWeatherByCity = async(req,res) => {
   try {
@@ -12,7 +9,7 @@ const getWeatherByCity = async(req,res) => {
 
     const apiKey = process.env.WEATHER_API_KEY;
     if (!apiKey) {
-      return res.status(400).json({ message: "Weather API key not configured"});
+      return res.status(500).json({ message: "Weather API key not configured"});
     }
 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`;
@@ -82,7 +79,7 @@ const getWeatherByCoords = async(req,res) => {
     })
     
   } catch(err) {
-    console.error("[getWeatherByCoords] error:", err);
+    console.error("[getWeatherByCoords] error:", err?.response?.data || err?.message || err);
     return res.status(500).json({message: "Failed to fetch weather data"});
   }
 }
@@ -112,7 +109,6 @@ const getFiveDayForecastByCity = async(req,res) => {
       "[getFiveDayForecastByCity] error:",
       status,
       upstream || err?.message || err,
-      // err?.response?.data || err);
     );
 
     return res.status(status).json({ message: upstream?.message || err?.message || "Failed to fetch 5-day forecast"});

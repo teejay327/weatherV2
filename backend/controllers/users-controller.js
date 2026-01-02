@@ -5,6 +5,10 @@ import User from '../models/user.js';
 const signup = async(req,res) => {
   const { email,password } = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required!"});
+  };
+
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -18,6 +22,10 @@ const signup = async(req,res) => {
 
     await newUser.save();
 
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT secret not configured!"});
+    }
+
     // generate jwt for auto-login
     const token = jwt.sign(
       {userId: newUser.id, email: newUser.email},
@@ -26,29 +34,38 @@ const signup = async(req,res) => {
     );
 
     // respond with user details and token
-    res.status(201).json({
+    return res.status(201).json({
       userId: newUser.id,
       email: newUser.email,
       token
     });
   } catch(err) {
-    console.error({message: 'Signup failed', detail: err.message});
+    console.error("[Signup] error:", err?.message || err);
+    return res.status(500).json({message: 'Signup failed' });
   }
-}
+};
 
 //Login controller
 const login = async(req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required!"});
+  };
+
   try {
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return res.status(403).json({ message: 'Invalid credentials'});
+      return res.status(403).json({ message: 'Invalid email or password'});
     }
 
     const isValidPassword = await bcrypt.compare(password, existingUser.password);
     if (!isValidPassword) {
       return res.status(403).json({ message: 'Invalid email or password'});
+    }
+
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT secret not configured!"});
     }
 
     const token = jwt.sign(
@@ -57,14 +74,14 @@ const login = async(req, res) => {
       { expiresIn: '1d' }
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       userId: existingUser.id,
       email: existingUser.email,
       token
     });
   } catch(err) {
-    console.error('[Login] error:', err);
-    res.status(500).json({message: 'Login failed', detail: err.message});
+    console.error('[Login] error:', err?.message || err);
+    return res.status(500).json({message: 'Login failed' });
   }
 };
 
@@ -77,13 +94,17 @@ const validateToken = async(req,res) => {
       return res.status(404).json({ message: 'user not found'});
     }
 
+    if (!process.env.JWT_SECRET) {
+      return res.status(500).json({ message: "JWT_SECRET not configured!"});
+    }
+
     const newToken = jwt.sign(
       { userId,email},
       process.env.JWT_SECRET,
       { expiresIn: '1d'}
     );
 
-    res.status(200).json({
+    return res.status(200).json({
       message: 'token valid',
       token: newToken,
       email,
@@ -91,8 +112,8 @@ const validateToken = async(req,res) => {
     });
 
   } catch(err) {
-    console.error('[ValidateToken] error:', err);
-    res.status(500).json({ message: 'token validation failed' });
+    console.error('[ValidateToken] error:', err?.message || err);
+    return res.status(500).json({ message: 'token validation failed' });
   }
 };
 

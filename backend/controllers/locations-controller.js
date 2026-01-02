@@ -1,7 +1,9 @@
 import Location from '../models/location.js';
 import GeocodeCache from '../models/geocode-cache.js';
 import axios from 'axios';
-import mongoose from 'mongoose';
+
+const isProd = process.env.NODE_ENV === "production";
+const debug = (...args) => { if (!isProd) console.debug(...args); };
 
 // normalize a location name for the cache keys
 const normalizeName = (name) => name.trim().toLowerCase();
@@ -41,10 +43,6 @@ const geocodeViaOpenWeather = async(query) => {
 
 const saveLocation = async(req, res) => {
   try {
-    console.log('[SaveLocation] user:', req.userData);
-
-    
-    
     // Auth & input checks
     const userId = req?.userData?.userId;
     if (!userId) return res.status(401).json({ message: 'Authentication required'});
@@ -64,7 +62,7 @@ const saveLocation = async(req, res) => {
       lat = cache.lat;
       lon = cache.lon;
       displayName = cache.displayName || name;
-      console.debug('[SaveLocation] geocode cache HIT:', key);
+      debug('[SaveLocation] geocode cache HIT:', key);
 
       // if cache record but no displayName, try to fetch canonical name
       if (!cache.displayName) {
@@ -83,7 +81,7 @@ const saveLocation = async(req, res) => {
               },
               { new: true, setDefaultsOnInsert: true }
             ).exec();
-            console.debug('[SaveLocation cache entry patched with displayName:', key);
+            debug('[SaveLocation] cache entry patched with displayName:', key);
           } catch(e) {
             // ignore background update errors
             console.warn('[SaveLocation] background cache patch failed', e);
@@ -94,13 +92,9 @@ const saveLocation = async(req, res) => {
         cache.updatedAt = new Date();
         cache.save().catch((e) => console.warn('[SaveLocation] cache touch failed', e));
       }
-
-      
-      
-    
     
     } else {
-      console.debug('[SaveLocation] geocode cache MISS:', key);
+      debug('[SaveLocation] geocode cache MISS:', key);
 
       // Provider call via helper
       const geo = await geocodeViaOpenWeather(name);
@@ -162,19 +156,19 @@ const getRecentLocations = async(req, res) => {
       return res.status(401).json({ message: 'authentication required'});
     }
 
-    const locations = await Location.find({ userId: req.userData.userId })
+    const locations = await Location.find({ userId })
       .sort({ createdAt: -1})
       .limit(3)
       .lean()
       .exec();
 
-    console.log('[DEBUG] GET RECENT LOCATIONS FOUND:', locations.length);
+    debug('[DEBUG] GET RECENT LOCATIONS FOUND:', locations.length);
     
-    res.status(200).json(locations);
+    return res.status(200).json(locations);
   } catch(err) {
-      console.error('[getRecentLocations] error:', err);
+      console.error('[getRecentLocations] error:', err?.message || err);
       return res.status(500).json({ message: 'Failed to fetch recent locations' });
-  };
+  }
 };
 
 export {saveLocation,getRecentLocations};
