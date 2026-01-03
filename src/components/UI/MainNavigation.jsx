@@ -12,23 +12,22 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
   const isLoggedIn = !!token;
 
   const handleClick = (event) => {
-    if (typeof closeMenu === "function") {
-      closeMenu();
-    }
-    if (event.target.innerText.toLowerCase() === "home") {
-      navigate("/");
-    }
+    if (typeof closeMenu === "function") closeMenu();
   }
+
+  const baseLink = "bg-stone-800 text-slate-200 rounded-md px-4 py-2 min-h-[44px] inline-flex items-center hover:bg-slate-700 hover:text-yellow-700"
+  const activeLinkClass = "text-yellow-400";
+  const navClass = ({ isActive }) => baseLink + (isActive ? activeLinkClass : "");
+  // For "virtual" tabs that are controlled by ?show=...
+  const navClassByShow = (showValue) => baseLink + (activeLink === showValue ? activeLinkClass : "");
 
   return (
     <nav >
       <ul className={`flex ${isMobile ? "flex-col space-y-4" : "space-x-6"}`} >
-        <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+        <li>
           <NavLink 
             to="/" 
-            className={({isActive}) => 
-              isActive && !activeLink ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"                
-            }
+            className={navClass}
             end 
             onClick={handleClick}
           >
@@ -38,46 +37,38 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
 
         {isLoggedIn && (
           <>
-            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <li>
               <NavLink 
                 to="/search" 
-                className={({isActive}) => 
-                  isActive ? "text-yellow-400 hover:bg-slate-700" : undefined
-                } onClick={handleClick}
+                className={navClass} 
+                onClick={handleClick}
               >
                 Search
               </NavLink>
             </li>
 
-            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <li>
               <NavLink
-                //to="/?show=charts"
                 to={`/location?place=${place}&show=charts`}
-                className={() =>
-                  activeLink === "charts" ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
-                }
+                className={() => navClassByShow("charts")}
                 onClick={handleClick}
               >
                 Charts
               </NavLink>
             </li>
-            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <li>
               <NavLink
                 to={`/location?place=${place}&show=fivedays`}
-                className={() =>
-                  activeLink === "fivedays" ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
-                }
+                className={() => navClassByShow("fivedays")}
                 onClick={handleClick}
               >
                 5 Days
               </NavLink>
             </li>
-            <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+            <li>
               <NavLink
                 to={place ? `/tomorrow?place=${encodeURIComponent(place)}` : "/search"}
-                className={({ isActive }) => 
-                  isActive ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
-                }
+                className={navClass}
                 onClick={handleClick}
               >
                 Tomorrow
@@ -87,12 +78,11 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
         )}
 
         {!isLoggedIn && (  
-          <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+          <li>
             <NavLink 
               to="/login" 
-              className={({isActive}) => 
-                isActive ? "text-yellow-400 hover:bg-slate-700" : "hover:bg-slate-700"
-              } onClick={handleClick}
+              className={navClass} 
+              onClick={handleClick}
             >
               Login
             </NavLink>
@@ -100,15 +90,15 @@ const MainNavigation = ({ isMobile = false, closeMenu }) => {
         )}
 
         {isLoggedIn && (
-          <li className="bg-stone-800 text-slate-200 px-4 py-2 rounded-md hover:text-yellow-700">
+          <li>
             <button
               onClick={() => {
                 logout();
                 toast("You've been logged out!");
                 navigate('/');
-                if (typeof closeMenu === "function") { closeMenu();}
+                handleNav();
               }}
-              className="hover:text-yellow-400"
+              className={baseLink + " justify-center hover:text-yellow-400"}
             >
               Logout
             </button>
